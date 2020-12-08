@@ -1,0 +1,12 @@
+{% extends "listings/base.html" %}
+{% load static %}
+{% block content %}
+
+<div>
+    <form method="POST">
+        {% csrf_token %}
+        {{ form }}
+        <button class="btn btn-outline-info" type="submit">Sign Up</button>
+    </form>
+</div>
+{% endblock content %}

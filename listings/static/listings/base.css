@@ -20,6 +20,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    font-family: "Noto Sans", sans-serif;
   }
 
   .logo_container h1 {
@@ -92,8 +93,153 @@
     margin-bottom: 15px;
     font-size: 5vw;
   }
+
+  footer {
+    min-height: 100px;
+  }
 }
 
 /* Laptop Screen */
-@media screen and (min-width: 600px) {
+@media screen and (min-width: 400px) {
+  .nav,
+  .svgs,
+  .svg1,
+  .svg2,
+  .functions,
+  .functiontext_parent,
+  .functiontext,
+  .footer_links {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: "Noto Sans", sans-serif;
+  }
+
+  .logo_container {
+    min-width: 500px;
+    color: white;
+    margin: 0;
+    padding: 0;
+  }
+
+  .logo_container h1 {
+    margin-left: 50px;
+    font-family: "Noto Sans", sans-serif;
+  }
+
+  .nav {
+    justify-content: space-around;
+    background-color: var(--primary);
+    min-height: 100px;
+  }
+
+  .navlinks {
+    float: right;
+    width: 50%;
+  }
+
+  .float_right {
+    float: right;
+  }
+  .navlinks ul {
+    justify-content: space-around;
+  }
+
+  .navlinks ul li {
+    display: inline;
+    float: left;
+    list-style-type: none;
+    overflow: hidden;
+  }
+
+  .navlinks ul li a {
+    margin: 20px;
+    display: block;
+    float: right;
+    color: white;
+    text-decoration: none;
+  }
+
+  .svgs {
+    justify-content: space-around;
+  }
+
+  .svg1,
+  .svg2 {
+    min-height: 200px;
+    flex-direction: column;
+  }
+
+  .svg1 img,
+  .svg2 img {
+    min-height: 200px;
+    min-width: 80%;
+    margin: 30px;
+  }
+
+  .functions {
+    padding: 15px;
+    flex-direction: column;
+    background-color: var(--secondary);
+  }
+
+  .functions {
+    color: white;
+    font-size: 15px;
+  }
+
+  .functiontext_parent {
+    width: 100%;
+    padding: 15px;
+    justify-content: space-around;
+  }
+
+  .functiontext {
+    padding: 10px;
+    width: 250px;
+    max-height: 50px;
+    background-color: var(--primary);
+    border-radius: 10px;
+    margin-bottom: 15px;
+    font-size: 20px;
+  }
+
+  footer {
+    display: flex;
+    width: 100%;
+    background-color: black;
+    position: fixed;
+    bottom: 0;
+    min-height: 140px;
+    justify-content: space-around;
+    align-items: center;
+  }
+
+  footer h1 {
+    color: white;
+  }
+
+  .footer_links a {
+    color: white;
+    text-decoration: none;
+    min-width: 200px;
+  }
+}
+
+footer {
+  display: flex;
+  width: 100%;
+  background-color: black;
+  justify-content: space-around;
+  align-items: center;
+}
+
+footer h1 {
+  color: white;
+}
+
+.footer_links a {
+  color: white;
+  text-decoration: none;
+  min-width: 200px;
 }

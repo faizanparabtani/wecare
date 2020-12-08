@@ -1,3 +1,7 @@
 from django.contrib import admin
+from .models import User, Seeker, Provider
 
-# Register your models here.
+
+admin.site.register(User)
+admin.site.register(Seeker)
+admin.site.register(Provider)
