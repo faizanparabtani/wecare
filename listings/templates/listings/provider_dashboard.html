@@ -1,0 +1,23 @@
+{% extends "listings/base.html" %}
+{% load static %}
+{% block content %}
+<link rel="stylesheet" href="{% static 'listings/provider_dashboard.css' %}">
+<title>Provider Dashboard</title>
+<h1>Patient Health Data</h1>
+<div class="data_container">
+    <div class="health_data">
+        <table>
+            <tr>
+                <th>Name</th>
+                <th>Age</th>
+                <th>Steps</th>
+                <th>Heart Rate</th>
+                <th>Date Recorded</th>
+            </tr>
+        </table>
+    </div>
+</div>
+
+
+
+{% endblock content %}

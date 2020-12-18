@@ -54,6 +54,28 @@
     text-decoration: none;
   }
 
+  .loginpopup {
+    z-index: 1;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    float: right;
+    right: 100px;
+    border: 1px solid var(--secondary);
+    font-family: "Noto Sans", sans-serif;
+    background-color: rgb(255, 241, 241);
+    box-shadow: 5px 5px 12px -7px rgba(0, 0, 0, 0.75);
+  }
+
+  .loginpopup a {
+    padding-right: 10px;
+    text-decoration: none;
+    font-family: "Noto Sans", sans-serif;
+    color: var(--primary);
+    font-weight: bold;
+  }
+
   .svg1,
   .svg2 {
     min-height: 200px;
@@ -158,8 +180,34 @@
     float: right;
     color: white;
     text-decoration: none;
+    cursor: pointer;
   }
 
+  .loginpopup {
+    z-index: 1;
+    padding: 20px;
+    display: none;
+    flex-direction: column;
+    position: absolute;
+    float: right;
+    right: 100px;
+    border: 1px solid var(--secondary);
+    font-family: "Noto Sans", sans-serif;
+    background-color: rgb(255, 241, 241);
+    box-shadow: 5px 5px 12px -7px rgba(0, 0, 0, 0.75);
+  }
+
+  .loginpopup a {
+    padding-right: 10px;
+    text-decoration: none;
+    font-family: "Noto Sans", sans-serif;
+    color: var(--primary);
+    font-weight: bold;
+  }
+
+  .registerpopup {
+    display: none;
+  }
   .svgs {
     justify-content: space-around;
   }
@@ -201,7 +249,7 @@
     background-color: var(--primary);
     border-radius: 10px;
     margin-bottom: 15px;
-    font-size: 20px;
+    font-size: 2vh;
   }
 
   footer {

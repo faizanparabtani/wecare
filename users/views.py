@@ -30,7 +30,10 @@ class provider_register(CreateView):
         return redirect('/')
 
 
-def login_request(request):
+def logindir(request):
+    return render(request, 'users/login.html')
+
+def seeker_login(request):
     if request.method=='POST':
         form = AuthenticationForm(data=request.POST)
         if form.is_valid():
@@ -39,12 +42,29 @@ def login_request(request):
             user = authenticate(username=username, password=password)
             if user is not None :
                 login(request,user)
-                return redirect('/')
+                return redirect('dashboard')
             else:
                 messages.error(request,"Invalid username or password")
         else:
                 messages.error(request,"Invalid username or password")
-    return render(request, 'users/login.html',context={'form':AuthenticationForm()})
+    return render(request, 'users/seeker_login.html',context={'form':AuthenticationForm()})
+
+
+def provider_login(request):
+    if request.method=='POST':
+        form = AuthenticationForm(data=request.POST)
+        if form.is_valid():
+            username = form.cleaned_data.get('username')
+            password = form.cleaned_data.get('password')
+            user = authenticate(username=username, password=password)
+            if user is not None :
+                login(request,user)
+                return redirect('p_dashboard')
+            else:
+                messages.error(request,"Invalid username or password")
+        else:
+                messages.error(request,"Invalid username or password")
+    return render(request, 'users/provider_login.html',context={'form':AuthenticationForm()})
 
 def logout_view(request):
     logout(request)

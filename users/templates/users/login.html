@@ -3,11 +3,8 @@
 {% block content %}
 
 <div>
-    <form method="POST">
-        {% csrf_token %}
-        {{ form }}
-        <button class="btn btn-outline-info" type="submit">LogIn</button>
-    </form>
+    <a href="{% url 'p_login' %}">Provider Login</a>
+    <a href="{% url 's_login' %}">Seeker Login</a>
 </div>
 
 {% endblock content %}

@@ -1,0 +1,22 @@
+/* Flex center center */
+.data_container,
+.health_data {
+  display: flex;
+  justify-content: center;
+  align-self: center;
+  font-family: "Noto Sans", sans-serif;
+  min-height: 200px;
+}
+
+.data_container {
+  margin-top: 50px;
+}
+
+.health_data {
+  border: 3px solid var(--primary);
+  width: 70%;
+}
+
+table {
+  width: 100%;
+}
