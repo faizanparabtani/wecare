@@ -1,0 +1,161 @@
+.parent_container h1 {
+  margin-top: 1vw;
+  font-family: "Noto-Sans", sans-serif;
+}
+
+.svgform {
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.girl_workout {
+  margin-top: 1vh;
+  min-width: 40vh;
+  display: flex;
+}
+
+/* Phone Screen */
+@media screen and (max-width: 599px) {
+  .parent_container,
+  .login_container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  .loginpopup,
+  .registerpopup {
+    display: none;
+  }
+  .login_container {
+    font-family: "Noto-Sans", sans-serif;
+    color: black;
+    margin-top: 2vw;
+    background-color: rgb(231, 231, 231);
+    border: 1px solid var(--secondary);
+    border-radius: 2vw;
+    min-height: 40vh;
+    max-width: 50vh;
+    justify-content: space-around;
+    align-items: center;
+  }
+  .loginform {
+    font-family: "Noto-Sans", sans-serif;
+    font-weight: bold;
+    align-items: flex-start;
+    text-align: left;
+    flex-direction: column;
+  }
+  .loginform input,
+  .loginform label {
+    float: left;
+    margin: 10px;
+  }
+
+  #id_username,
+  #id_password {
+    float: right;
+    font-size: 10px;
+    padding: 5px;
+    border: none;
+    background-color: rgb(182, 182, 182);
+  }
+
+  .submit {
+    margin-top: 10px;
+    font-weight: bold;
+    border: 0;
+    color: white;
+    background-color: var(--primary);
+    min-height: 40px;
+    min-width: 100px;
+  }
+
+  .girl_workout {
+    display: none;
+    margin-top: 1vh;
+    max-width: 10vh;
+    /* display: flex; */
+    opacity: 0.5;
+    z-index: -1;
+  }
+  .signup {
+    color: var(--primary);
+    padding: 1vh;
+  }
+
+  .helptext {
+    display: none;
+  }
+}
+
+/* Laptop Screen */
+@media screen and (min-width: 600px) {
+  .parent_container,
+  .loginform,
+  .form_container,
+  .login_container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .parent_container {
+    flex-direction: column;
+  }
+  .login_container {
+    font-family: "Noto-Sans", sans-serif;
+    color: black;
+    margin-top: 2vw;
+    background-color: rgb(231, 231, 231);
+    border: 1px solid var(--secondary);
+    border-radius: 2vw;
+    justify-content: space-around;
+  }
+  .login_container {
+    min-height: 25vw;
+    min-width: 60vw;
+    flex-direction: column;
+  }
+
+  .girl_workout,
+  .girl {
+    max-height: 20vw;
+    display: flex;
+  }
+
+  .loginform {
+    font-family: "Noto-Sans", sans-serif;
+    font-weight: bold;
+    align-items: flex-start;
+    text-align: left;
+    flex-direction: column;
+  }
+
+  .loginform input,
+  .loginform label {
+    margin: 10px;
+  }
+
+  #id_username,
+  #id_password {
+    font-size: 20px;
+    padding: 10px;
+    border: none;
+    background-color: rgb(182, 182, 182);
+  }
+
+  .submit {
+    font-weight: bold;
+    border: 0;
+    color: white;
+    background-color: var(--primary);
+    min-height: 40px;
+    min-width: 100px;
+  }
+  .helptext {
+    display: none;
+  }
+}

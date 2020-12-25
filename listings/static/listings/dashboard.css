@@ -1,0 +1,88 @@
+* {
+  padding: 0;
+  margin: 0;
+}
+
+/* font */
+.parent_container {
+  font-family: "Noto Sans", sans-serif;
+}
+
+/* flex center center */
+.parent_container,
+.table_container {
+  display: flex;
+  justify-content: center;
+}
+
+/* Phone Screen */
+@media screen and (max-width: 599px) {
+  .table_container {
+    align-items: flex-start;
+    margin-top: 20px;
+    width: 100%;
+    display: table;
+  }
+
+  .listings_table {
+    table-layout: fixed;
+    border-collapse: collapse;
+    min-width: 100%;
+  }
+
+  .listings_table thead {
+    background-color: var(--primary);
+    color: white;
+    text-align: left;
+    font-size: 12px;
+  }
+  .listings_table th {
+    padding-left: 15px;
+  }
+  .listings_table td {
+    font-size: 15px;
+  }
+}
+
+/* Laptop Screen */
+@media screen and (min-width: 600px) {
+  .parent_container {
+    width: 100%;
+    min-height: 300px;
+  }
+
+  .table_container {
+    align-items: flex-start;
+    margin-top: 50px;
+    flex-direction: column;
+    width: 70%;
+  }
+
+  .listings_table {
+    table-layout: fixed;
+    border-collapse: collapse;
+    width: 100%;
+  }
+
+  .listings_table thead {
+    background-color: var(--primary);
+    color: white;
+    text-align: left;
+    font-size: 15px;
+    /* font-size: 5vw; */
+  }
+
+  .listings_table th,
+  .listings_table td {
+    padding: 20px;
+  }
+
+  #id_provider,
+  #id_speciality {
+    float: right;
+    font-size: 10px;
+    padding: 5px;
+    border: none;
+    background-color: rgb(182, 182, 182);
+  }
+}

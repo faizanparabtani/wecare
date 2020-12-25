@@ -22,8 +22,7 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     'listings.apps.ListingsConfig',
-    # 'providers.apps.ProvidersConfig',
-    # 'seekers.apps.SeekersConfig',
+    'healthdata.apps.HealthdataConfig',
     'users.apps.UsersConfig',
     'django.contrib.admin',
     'django.contrib.auth',

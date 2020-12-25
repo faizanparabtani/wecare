@@ -1,13 +1,24 @@
 {% extends "listings/base.html" %}
 {% load static %}
 {% block content %}
-
-<div>
-    <form method="POST">
-        {% csrf_token %}
-        {{ form }}
-        <button class="btn btn-outline-info" type="submit">LogIn</button>
-    </form>
+<link rel="stylesheet" href="{% static 'listings/base.css' %}">
+<link rel="stylesheet" href="{% static 'users/login.css' %}">
+<div class="parent_container">
+    <h1>Welcome Back!</h1>
+    <div class="login_container">
+        <div class="svgform">
+            <div class="girl">
+                <img class="girl_workout" src="{% static 'users/login.svg' %}" alt="Get Started">
+            </div>
+            <div class="form_container">
+                <form method="POST" class="loginform">
+                    {% csrf_token %}
+                    {{ form }}
+                    <input class="submit" type="submit" value="LogIn">
+                </form>
+            </div>
+        </div>
+        <a class="signup" href="{% url 's_register' %}">New to WeCare? Signup</a>
+    </div>
 </div>
-
 {% endblock content %}

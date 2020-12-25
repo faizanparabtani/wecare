@@ -15,7 +15,7 @@
       <h1>WeCare</h1>
     </div>
     <div class="navlinks">
-      {% if user.is_authenticated and user.is_seeker == False %}
+      {% if user.is_authenticated and user.is_provider == True %}
         <ul class="float_right">
           <li><a href="{% url 'home' %}">Home</a></li>
           <li><a href="#">My Listing</a></li>
@@ -33,7 +33,7 @@
           <li><a href="{% url 'home' %}">Home</a></li>
           <li><a href="about.html">About</a></li>
           <li><div class="login"><a>Login</a></div></li>
-          <li><a href="{% url 'register' %}">Register</a></li>
+          <li><div class="register"><a>Register</a></div></li>
         </ul>
       {% endif %}
     </div>
@@ -45,15 +45,28 @@
   </div>
   <div class="registerpopup">
     Choose User Type
-    <a href="{% url 'seeker_register' %}">User</a>
-    <a href="{% url 'seeker_register' %}">Healthcare Provider</a>
+    <a href="{% url 's_register' %}">User</a>
+    <a href="{% url 'p_register' %}">Healthcare Provider</a>
   </div>
   {% block content %}{% endblock %}
+  <footer>
+    <div class="logo_footer">
+      <h1>WeCare</h1>
+    </div>
+    <div class="footer_links">
+      <a href="">About Us</a>
+      <a href="">Contact Us</a>
+    </div>
+  </footer>
 </body>
 
 <script>
   var login = document.getElementsByClassName("loginpopup")[0]
+  var registerpop = document.getElementsByClassName("registerpopup")[0]
+  
+
   document.getElementsByClassName("login")[0].addEventListener("click", function() {
+  registerpop.style.display = 'none';
   if (login.style.display == 'flex'){
     login.style.display = 'none';
   }
@@ -61,6 +74,16 @@
     login.style.display = 'flex';
   }
 }); 
+
+  document.getElementsByClassName("register")[0].addEventListener("click", function() {
+    login.style.display = 'none';
+    if (registerpop.style.display == 'flex'){
+      registerpop.style.display = 'none';
+    }
+    else{
+      registerpop.style.display = 'flex';
+    }
+  }); 
 </script>
 
 </html>

@@ -1,7 +1,39 @@
 {% extends "listings/base.html" %}
 {% load static %}
 {% block content %}
+<link rel="stylesheet" href="{% static 'listings/dashboard.css' %}">
+<div class="parent_container">
+    <div class="table_container">
+        <h2>Filter HealthCare Providers</h2>
+        <form method="get">
+            {{ filter.form.as_p }}
+            <button type="submit">Search</button>
+        </form>
+        <table class="listings_table">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Speciality</th>
+                    <th>Ethnicity</th>
+                    <th>Consultation Charges</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            
+            {% for listing in filter.qs %}
+                <tr>
+                    <td><a href="{% url 'listing' listing.listing_id %}">{{ listing.provider }}</a></td>
+                    <td>{{ listing.speciality }}</td>
+                    <td>{{ listing.ethnicity }}</td>
+                    <td>{{ listing.consultation_charges }}</td>
+                    <td><a>Know More </a></td>
+                </tr>
+                
+            {% endfor %}
+        </table>
+    </div>
+</div>
 
-<h1>Dashboard</h1>
+<!-- <script src="{% static 'listings/filter.js' %}"></script> -->
 
 {% endblock content %}
