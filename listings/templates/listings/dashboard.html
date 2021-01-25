@@ -2,8 +2,23 @@
 {% load static %}
 {% block content %}
 <link rel="stylesheet" href="{% static 'listings/dashboard.css' %}">
+<script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>
+<!-- <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.min.js"></script> -->
 <div class="parent_container">
     <div class="table_container">
+        <div class="healthdata">
+            <h2>Welcome {{ seeker }}</h2>
+            {% if user_healthdata == None %}
+                <h2>Start tracking your fitness and healthdata</h2>
+                <a href="{% url 'track' %}">Track</a>
+            {% else %}
+                <h2>Your healthdata was last recorded on {{ user_healthdata.date_recorded|date:"F d, Y" }}</h2>
+                <div class="chart">
+                    <canvas id="pie-chart"></canvas>
+                </div>
+                <a href="{% url 'track' %}">Track</a>
+            {% endif %}
+        </div>
         <h2>Filter HealthCare Providers</h2>
         <form method="get">
             {{ filter.form.as_p }}
@@ -16,7 +31,6 @@
                     <th>Speciality</th>
                     <th>Ethnicity</th>
                     <th>Consultation Charges</th>
-                    <th>Action</th>
                 </tr>
             </thead>
             
@@ -26,14 +40,38 @@
                     <td>{{ listing.speciality }}</td>
                     <td>{{ listing.ethnicity }}</td>
                     <td>{{ listing.consultation_charges }}</td>
-                    <td><a>Know More </a></td>
                 </tr>
-                
             {% endfor %}
         </table>
     </div>
 </div>
-
 <!-- <script src="{% static 'listings/filter.js' %}"></script> -->
+<script>
+    var config = {
+  type: 'line',
+  data: {
+    datasets: [{
+        barPercentage: 0.5,
+        barThickness: 6,
+        maxBarThickness: 8,
+        minBarLength: 2,
+      data: "{{ data|safe }}",
+      backgroundColor: [
+        '#696969', '#808080', '#A9A9A9', '#C0C0C0', '#D3D3D3'
+      ],
+      label: 'Steps'
+    }],
+    labels: "{{ labels|safe }}"
+  },
+  options: {
+    responsive: true
+  }
+};
 
+window.onload = function() {
+  var ctx = document.getElementById('pie-chart').getContext('2d');
+  window.myPie = new Chart(ctx, config);
+};
+
+</script>
 {% endblock content %}

@@ -49,3 +49,34 @@ class ProviderSignUpForm(UserCreationForm):
         provider.designation=self.cleaned_data.get('designation')
         provider.save()
         return user
+
+class UserUpdateForm(forms.ModelForm):
+
+    # def __init__(self, user, *args, **kwargs):
+    #     self.user = user
+    #     super(UserUpdateForm, self).__init__(*args, **kwargs)
+        
+    email = forms.EmailField(required=False, widget=forms.TextInput(attrs={'placeholder': 'FixThis'}))
+    first_name = forms.CharField(max_length=100, required=False)
+    last_name = forms.CharField(max_length=100, required=False)
+    class Meta:
+        model = User
+        fields = ['email', 'first_name', 'last_name']
+
+class SeekerProfileUpdateForm(forms.ModelForm):
+
+    phone_number = forms.CharField(max_length=20,  widget=forms.TextInput(attrs={'placeholder': 'TestSeeker'}), required=False)
+    location = forms.CharField(max_length=20, required=False)
+
+    class Meta:
+        model = Seeker
+        fields = ['phone_number', 'location']
+
+
+class ProviderProfileUpdateForm(forms.ModelForm):
+    phone_number = forms.CharField(max_length=20, widget=forms.TextInput(attrs={'placeholder': 'TestSeeker'}), required=False)
+    designation = forms.CharField(max_length=20, required=False)
+
+    class Meta:
+        model = Provider
+        fields = ['phone_number', 'designation']

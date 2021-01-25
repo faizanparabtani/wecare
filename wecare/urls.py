@@ -5,6 +5,7 @@ from listings import views as listings
 from users import views as users
 from listings.filters import ListingFilter
 from django_filters.views import FilterView
+from healthdata import views as healthdata
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -15,5 +16,6 @@ urlpatterns = [
     path('listing/<int:pk>/', listings.ListingView.as_view(), name='listing'),
     # path('listing<>', listings.listing, name='listing'),
     path('providerdashboard', listings.providerdashboard, name='p_dashboard'),
+    path('track', healthdata.track, name='track'),
     path('users/', include('users.urls')),
 ]

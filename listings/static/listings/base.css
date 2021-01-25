@@ -279,7 +279,7 @@ body {
     min-height: 140px;
     justify-content: space-around;
     align-items: center;
-    margin-top: auto;
+    /* margin-top: auto; */
   }
 
   footer h1 {

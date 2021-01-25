@@ -8,5 +8,6 @@ urlpatterns=[
      path('login/',views.logindir, name='login'),
      path('provider_login/',views.provider_login, name='p_login'),
      path('seeker_login/',views.seeker_login, name='s_login'),
+     path('seeker_setting/',views.seeker_setting, name='s_setting'),
      path('logout/',views.logout_view, name='logout'),
 ]

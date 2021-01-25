@@ -85,4 +85,8 @@
     border: none;
     background-color: rgb(182, 182, 182);
   }
+
+  .chart {
+    width: 100%;
+  }
 }
