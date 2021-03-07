@@ -1,6 +1,7 @@
 from django.shortcuts import render, get_object_or_404
 from .models import Listing
 from healthdata.models import HealthData
+from django.http import JsonResponse
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import (
     ListView,
@@ -17,29 +18,37 @@ def home(request):
     return render(request, 'listings/home.html')
 
 def dashboard(request):
-    labels = []
-    data = []
     seeker = get_object_or_404(Seeker, user=request.user)
-    try:
-        user_healthdata = HealthData.objects.filter(seeker=seeker)
-        for userdata in user_healthdata:
-            labels.append(userdata.date_recorded)
-            data.append(userdata.steps)
-    except:
-        user_healthdata = None
 
     listing = Listing.objects.all()
     listing_filter = ListingFilter(request.GET, queryset=listing)
     context = {
-        'labels': labels,
-        'data': data,
         'seeker': seeker,
-        'user_healthdata': user_healthdata,
         'listings': Listing.objects.all(),
         'filter': listing_filter
     }
     return render(request, 'listings/dashboard.html', context)
 
+def workout_chart(request):
+    labels = []
+    data = []
+
+    seeker = get_object_or_404(Seeker, user=request.user)
+
+    try:
+        user_healthdata = HealthData.objects.filter(seeker=seeker)
+        for userdata in user_healthdata:
+            labels.append(userdata.date_recorded)
+            data.append(userdata.steps)
+            print(labels, data)
+    except:
+        user_healthdata = None
+        print('Hello')
+    
+    return JsonResponse(data={
+        'labels' : labels,
+        'data': data,
+    })
 
 
 def providerdashboard(request):

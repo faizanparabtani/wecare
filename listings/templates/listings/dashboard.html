@@ -2,8 +2,8 @@
 {% load static %}
 {% block content %}
 <link rel="stylesheet" href="{% static 'listings/dashboard.css' %}">
-<script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>
-<!-- <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.min.js"></script> -->
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>
 <div class="parent_container">
     <div class="table_container">
         <div class="healthdata">
@@ -14,7 +14,7 @@
             {% else %}
                 <h2>Your healthdata was last recorded on {{ user_healthdata.date_recorded|date:"F d, Y" }}</h2>
                 <div class="chart">
-                    <canvas id="pie-chart"></canvas>
+                    <canvas id="workout-chart" data-url="{% url 'workout_chart' %}"></canvas>
                 </div>
                 <a href="{% url 'track' %}">Track</a>
             {% endif %}
@@ -45,33 +45,68 @@
         </table>
     </div>
 </div>
-<!-- <script src="{% static 'listings/filter.js' %}"></script> -->
+
+<!-- //     var config = {
+//   type: 'line',
+//   data: {
+//     datasets: [{
+//         barPercentage: 0.5,
+//         barThickness: 6,
+//         maxBarThickness: 8,
+//         minBarLength: 2,
+//       data: "{{ data|safe }}",
+//       backgroundColor: [
+//         '#696969', '#808080', '#A9A9A9', '#C0C0C0', '#D3D3D3'
+//       ],
+//       label: 'Steps'
+//     }],
+//     labels: "{{ labels|safe }}"
+//   },
+//   options: {
+//     responsive: true
+//   }
+// };
+
+// window.onload = function() {
+//   var ctx = document.getElementById('pie-chart').getContext('2d');
+//   window.myPie = new Chart(ctx, config);
+// }; -->
 <script>
-    var config = {
-  type: 'line',
-  data: {
-    datasets: [{
-        barPercentage: 0.5,
-        barThickness: 6,
-        maxBarThickness: 8,
-        minBarLength: 2,
-      data: "{{ data|safe }}",
-      backgroundColor: [
-        '#696969', '#808080', '#A9A9A9', '#C0C0C0', '#D3D3D3'
-      ],
-      label: 'Steps'
-    }],
-    labels: "{{ labels|safe }}"
-  },
-  options: {
-    responsive: true
+
+$(function () {
+
+var $populationChart = $("#workout-chart");
+$.ajax({
+  url: $populationChart.data("url"),
+  success: function (data) {
+
+    var ctx = $populationChart[0].getContext("2d");
+
+    new Chart(ctx, {
+      type: 'bar',
+      data: {
+        labels: "{{ data.labels }}",
+        datasets: [{
+          label: 'Population',
+          backgroundColor: 'blue',
+          data: "{{ data.data }}"
+        }]          
+      },
+      options: {
+        responsive: true,
+        legend: {
+          position: 'top',
+        },
+        title: {
+          display: true,
+          text: 'Population Bar Chart'
+        }
+      }
+    });
+
   }
-};
+});
 
-window.onload = function() {
-  var ctx = document.getElementById('pie-chart').getContext('2d');
-  window.myPie = new Chart(ctx, config);
-};
-
-</script>
+});
+    </script>
 {% endblock content %}

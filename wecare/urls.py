@@ -13,6 +13,7 @@ urlpatterns = [
     path('logout/', auth_views.LogoutView.as_view(template_name='listings/home.html'), name='logout'),
     # path('dashboard', listings.Dashboard.as_view(filterset_class=ListingFilter), name='dashboard'),
     path('dashboard', listings.dashboard, name='dashboard'),
+    path('workout_chart/', listings.workout_chart, name='workout_chart'),
     path('listing/<int:pk>/', listings.ListingView.as_view(), name='listing'),
     # path('listing<>', listings.listing, name='listing'),
     path('providerdashboard', listings.providerdashboard, name='p_dashboard'),

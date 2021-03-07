@@ -56,9 +56,13 @@ class UserUpdateForm(forms.ModelForm):
     #     self.user = user
     #     super(UserUpdateForm, self).__init__(*args, **kwargs)
         
-    email = forms.EmailField(required=False, widget=forms.TextInput(attrs={'placeholder': 'FixThis'}))
+    def getuser(request, *args, **kwargs):
+        global user
+        user = request.user
+    email = forms.EmailField(required=False, widget=forms.TextInput(attrs={'placeholder': 'some'}))
     first_name = forms.CharField(max_length=100, required=False)
     last_name = forms.CharField(max_length=100, required=False)
+
     class Meta:
         model = User
         fields = ['email', 'first_name', 'last_name']
