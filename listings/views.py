@@ -3,6 +3,7 @@ from .models import Listing
 from healthdata.models import HealthData
 from django.http import JsonResponse
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.core.paginator import Paginator
 from django.views.generic import (
     ListView,
     DetailView,
@@ -12,22 +13,41 @@ from django.views.generic import (
 )
 from .filters import ListingFilter, HealthDataFilter
 from users.models import Seeker
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+
 # from django_filters.views import FilterView
+
 
 def home(request):
     return render(request, 'listings/home.html')
 
+
 def dashboard(request):
     seeker = get_object_or_404(Seeker, user=request.user)
 
-    listing = Listing.objects.all()
-    listing_filter = ListingFilter(request.GET, queryset=listing)
+    listing_filter = ListingFilter(request.GET, queryset=Listing.objects.all())
+
+    # Pagination
+    paginator = Paginator(listing_filter.qs, 1)
+    page_number = request.GET.get('page')
+    # page_obj = paginator.get_page(page_number)
+
+    try:
+        response = paginator.page(page_number)
+    except PageNotAnInteger:
+        response = paginator.page(1)
+    except EmptyPage:
+        response = paginator.page(paginator.num_pages)
+
+    # Setting Context to send to template
     context = {
         'seeker': seeker,
-        'listings': Listing.objects.all(),
-        'filter': listing_filter
+        'filter': listing_filter,
+        'page': page_number,
+        'response': response
     }
     return render(request, 'listings/dashboard.html', context)
+
 
 def workout_chart(request):
     labels = []
@@ -44,9 +64,9 @@ def workout_chart(request):
     except:
         user_healthdata = None
         print('Hello')
-    
+
     return JsonResponse(data={
-        'labels' : labels,
+        'labels': labels,
         'data': data,
     })
 
@@ -62,6 +82,7 @@ def providerdashboard(request):
 
 
 class ListingView(LoginRequiredMixin, DetailView):
+    paginate_by = 3
     model = Listing
     template_name = "listings/listing.html"
 

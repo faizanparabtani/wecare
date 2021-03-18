@@ -1,5 +1,6 @@
 .parent_container h1 {
   margin-top: 1vw;
+  margin-bottom: 0;
   font-family: "Noto-Sans", sans-serif;
 }
 
@@ -29,6 +30,10 @@
   .registerpopup {
     display: none;
   }
+
+  .form_container{
+    min-height: 30vw;
+  }
   .login_container {
     font-family: "Noto-Sans", sans-serif;
     color: black;
@@ -40,6 +45,10 @@
     max-width: 50vh;
     justify-content: space-around;
     align-items: center;
+    margin-left: 1em;
+    margin-right: 1em;
+    padding-left: 1em;
+    padding-right: 1em;
   }
   .loginform {
     font-family: "Noto-Sans", sans-serif;
@@ -51,20 +60,26 @@
   .loginform input,
   .loginform label {
     float: left;
+  }
+
+  label{
+    max-width: 100px;
+  }
+  .loginform input {
     margin: 10px;
   }
 
-  #id_username,
+  /* #id_username,
   #id_password {
     float: right;
     font-size: 10px;
     padding: 5px;
     border: none;
     background-color: rgb(182, 182, 182);
-  }
+  } */
 
   .submit {
-    margin-top: 10px;
+    margin-top: 20px;
     font-weight: bold;
     border: 0;
     color: white;
@@ -94,7 +109,6 @@
 /* Laptop Screen */
 @media screen and (min-width: 600px) {
   .parent_container,
-  .loginform,
   .form_container,
   .login_container {
     display: flex;
@@ -127,6 +141,7 @@
   }
 
   .loginform {
+    display: grid;
     font-family: "Noto-Sans", sans-serif;
     font-weight: bold;
     align-items: flex-start;
@@ -136,7 +151,7 @@
 
   .loginform input,
   .loginform label {
-    margin: 10px;
+    margin: 0.2em;
   }
 
   #id_username,

@@ -1,0 +1,53 @@
+/* Global Styles */
+.parent_container{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.parent_container{
+  flex-direction: column;
+  background-color: rgb(182, 182, 182);
+}
+
+
+.helptext{
+  display: none;
+}
+
+
+.loginform{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+/* #id_username,
+#id_email,
+#id_first_name,
+#id_last_name,
+#id_phone_number,
+#id_location,
+#id_designation,
+#id_password1,
+#id_password2 {
+  float: left;
+} */
+/* Mobile Screen */
+@media screen and (max-width: 599px) {
+
+  .girl_workout{
+    height: 30vw;
+  }
+
+}
+
+/* Laptop Screen */
+@media screen and (min-width: 600px) {
+
+  .girl_workout{
+    height: 10vw;
+  }
+
+}

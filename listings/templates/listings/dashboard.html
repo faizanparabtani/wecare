@@ -34,7 +34,7 @@
                 </tr>
             </thead>
             
-            {% for listing in filter.qs %}
+            {% for listing in response %}
                 <tr>
                     <td><a href="{% url 'listing' listing.listing_id %}">{{ listing.provider }}</a></td>
                     <td>{{ listing.speciality }}</td>
@@ -43,6 +43,87 @@
                 </tr>
             {% endfor %}
         </table>
+        <div class="paginator">
+        {% with request.get_full_path as querystring %}
+          <ul class="pagination nav navbar-nav">
+
+            <!-- Previous page section -->
+            {% if pages.has_previous %}
+                {% if 'title' in querystring %}
+                    {% if 'page' in querystring %}
+                        <li class="paginator {% if pages.number == page %}active{% endif %}">
+                            <a href="{{ querystring|slice:":-7" }}&page={{ pages.previous_page_number }}">Prev</a>
+                        </li>
+                    {% else %}
+                        <li class="paginator {% if pages.number == page %}active{% endif %}">
+                            <a href="{{ querystring }}&page={{ pages.previous_page_number }}">Prev</a>
+                        </li>
+                    {% endif %}
+                {% else %}
+                    <li class="paginator {% if pages.number == page %}active{% endif %}">
+                        <a href="?page={{ pages.previous_page_number }}">Prev</a>
+                    </li>
+                {% endif %}
+            {% endif %}
+
+            <!-- All pages section -->
+            {% for page in response.paginator.page_range %}
+                {% if 'title' in querystring %}
+                    {% if 'page' in querystring %}
+                        <li class="paginator {% if pages.number == page %}active{% endif %}">
+                            <a href="{{ querystring|slice:":-7" }}&page={{ page }}">{{ page }}</a>
+                        </li>
+                    {% else %}
+                        <li class="paginator {% if pages.number == page %}active{% endif %}">
+                            <a href="{{ querystring }}&page={{ page }}">{{ page }}</a>
+                        </li>
+                    {% endif %}
+                {% else %}
+                    <li class="paginator {% if pages.number == page %}active{% endif %}">
+                        <a href="?page={{ page }}">{{ page }}</a>
+                    </li>
+                {% endif %}
+            {% endfor %}
+
+            <!-- Next page section -->
+            {% if pages.has_next %}
+                {% if 'title' in querystring %}
+                    {% if 'page' in querystring %}
+                        <li class="paginator {% if pages.number == page %}active{% endif %}">
+                            <a href="{{ querystring|slice:":-7" }}&page={{ pages.next_page_number }}">Next</a>
+                        </li>
+                    {% else %}
+                        <li class="paginator {% if pages.number == page %}active{% endif %}">
+                            <a href="{{ querystring }}&page={{ pages.next_page_number }}">Next</a>
+                        </li>
+                    {% endif %}
+                {% else %}
+                    <li class="paginator {% if pages.number == page %}active{% endif %}">
+                        <a href="?page={{ pages.next_page_number }}">Next</a>
+                    </li>
+                {% endif %}
+            {% endif %}
+
+          </ul>
+        {% endwith %}
+        </div>
+        <!-- <div class="pagination">
+          <span class="step-links">
+              {% if response.has_previous %}
+                  <a href="?page=1">&laquo; first</a>
+                  <a href="?page={{ response.previous_page_number }}">previous</a>
+              {% endif %}
+      
+              <span class="current">
+                  Page {{ response.number }} of {{ response.paginator.num_pages }}.
+              </span>
+      
+              {% if response.has_next %}
+                  <a href="?page={{ response.next_page_number }}">next</a>
+                  <a href="?page={{ response.paginator.num_pages }}">last &raquo;</a>
+              {% endif %}
+          </span>
+      </div> -->
     </div>
 </div>
 

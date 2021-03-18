@@ -3,9 +3,16 @@
 }
 
 .login_container {
-  min-height: 30vw;
+  min-height: 35vw;
   margin-bottom: 10px;
 }
+
+@media screen and (max-width: 599px) {
+  .parent_container h1{
+    font-size: 1em;
+  }
+}
+
 
 #id_username,
 #id_email,
@@ -22,3 +29,5 @@
   border: none;
   background-color: rgb(182, 182, 182);
 }
+
+
