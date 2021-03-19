@@ -2,5 +2,11 @@
 {% load static %}
 {% block content %}
 <h1>Track</h1>
-
+<div class="data_form">
+    <form method="POST">
+        {% csrf_token %}
+        {{ form }}
+        <button type="submit">Add</button>
+    </form>
+</div>
 {% endblock content %}

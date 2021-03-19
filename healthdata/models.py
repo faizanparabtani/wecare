@@ -1,10 +1,13 @@
 from django.db import models
 from django.utils import timezone
 from users.models import Seeker, Provider
+from django.core.validators import MaxValueValidator, MinValueValidator
+
 
 class HealthData(models.Model):
-    seeker = models.ForeignKey(Seeker, on_delete = models.CASCADE)
-    heartrate = models.IntegerField()
+    seeker = models.ForeignKey(Seeker, on_delete=models.CASCADE)
+    heartrate = models.IntegerField(
+        validators=[MaxValueValidator(210), MinValueValidator(50)])
     weight = models.IntegerField()
     steps = models.IntegerField()
     date_recorded = models.DateTimeField(default=timezone.now)
@@ -14,4 +17,3 @@ class HealthData(models.Model):
 
 
 # class Consulting(models.Model):
-    
