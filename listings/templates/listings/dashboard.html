@@ -3,28 +3,31 @@
 {% load my_templatetags %}
 {% block content %}
 <link rel="stylesheet" href="{% static 'listings/dashboard.css' %}">
+<!-- <script src="{% static 'listings/chart.js' %}"></script> -->
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>
 <div class="parent_container">
-    <div class="table_container">
-        <div class="healthdata">
-            <h2>Welcome {{ seeker }}</h2>
-            {% if user_healthdata == None %}
-                <h2>Start tracking your fitness and healthdata</h2>
-                <a href="{% url 'track' %}">Track</a>
-            {% else %}
-                <h2>Your healthdata was last recorded on {{ user_healthdata.date_recorded|date:"F d, Y" }}</h2>
-                <div class="chart">
-                    <canvas id="workout-chart" data-url="{% url 'workout_chart' %}"></canvas>
-                </div>
-                <a href="{% url 'track' %}">Track</a>
-            {% endif %}
-        </div>
+    <!-- <div class="healthdata">
+        <h2>Welcome {{ seeker }}</h2>
+        {% if user_healthdata == None %}
+            <h2>Start tracking your fitness and healthdata</h2>
+            <a href="{% url 'track' %}">Track</a>
+        {% else %}
+            <h2>Your healthdata was last recorded on {{ user_healthdata.date_recorded|date:"F d, Y" }}</h2>
+            <div class="chart">
+                <canvas id="line-chart" data-url="{% url 'dashboard' %}" width="300px" height="200px"></canvas>
+            </div>
+            <a href="{% url 'track' %}">Track</a>
+        {% endif %}
+    </div> -->
+    <div class="healthcare_providers">
         <h2>Filter HealthCare Providers</h2>
-        <form method="get">
-            {{ filter.form.as_p }}
-            <button type="submit">Search</button>
-        </form>
+        <div class="filt_cont">
+            <form method="get" class="filt_form">
+                {{ filter.form }}
+                <button type="submit">Search</button>
+            </form>
+        </div>
         <table class="listings_table">
             <thead>
                 <tr>
@@ -34,7 +37,6 @@
                     <th>Consultation Charges</th>
                 </tr>
             </thead>
-            
             {% for listing in response %}
                 <tr>
                     <td><a href="{% url 'listing' listing.listing_id %}">{{ listing.provider }}</a></td>
@@ -44,74 +46,47 @@
                 </tr>
             {% endfor %}
         </table>
-        <div class="paginator">
-        
-            <span>
-                {% if response.has_previous %}
-                    <a href="?{% query_transform request page=1 %}">&laquo; first</a>
-                    <a href="?{% query_transform request page=response.previous_page_number %}">previous</a>
-                {% endif %}
-
-                <span class="current">
-                    Page {{ response.number }} of {{ response.paginator.num_pages }}.
-                </span>
-
-                {% if response.has_next %}
-                    <a href="?{% query_transform request page=response.next_page_number %}">next</a>
-                    <a href="?{% query_transform request page=response.paginator.num_pages %}">last &raquo;</a>
-                {% endif %}
-            </span>
-        </div>
-        <!-- <div class="pagination">
-          <span class="step-links">
-              {% if response.has_previous %}
-                  <a href="?page=1">&laquo; first</a>
-                  <a href="?page={{ response.previous_page_number }}">previous</a>
-              {% endif %}
-      
-              <span class="current">
-                  Page {{ response.number }} of {{ response.paginator.num_pages }}.
-              </span>
-      
-              {% if response.has_next %}
-                  <a href="?page={{ response.next_page_number }}">next</a>
-                  <a href="?page={{ response.paginator.num_pages }}">last &raquo;</a>
-              {% endif %}
-          </span>
-      </div> -->
     </div>
+    <div class="paginator">
+        <span>
+            {% if response.has_previous %}
+                <a href="?{% query_transform request page=1 %}">&laquo; first</a>
+                <a href="?{% query_transform request page=response.previous_page_number %}">previous</a>
+            {% endif %}
+
+            <span class="current">
+                Page {{ response.number }} of {{ response.paginator.num_pages }}
+            </span>
+
+            {% if response.has_next %}
+                <a href="?{% query_transform request page=response.next_page_number %}">next</a>
+                <a href="?{% query_transform request page=response.paginator.num_pages %}">last &raquo;</a>
+            {% endif %}
+        </span>
+    </div>
+    <div class="healthdata">
+        <h2>Welcome {{ seeker }}</h2>
+        {% if user_healthdata == None %}
+            <h2>Start tracking your fitness and healthdata</h2>
+            <a href="{% url 'track' %}">Track</a>
+        {% else %}
+            <h2>Your healthdata was last recorded on {{ user_healthdata.date_recorded|date:"F d, Y" }}</h2>
+            <div class="chart">
+                <canvas id="line-chart" data-url="{% url 'dashboard' %}" width="300px" height="200px"></canvas>
+            </div>
+            <a href="{% url 'track' %}">Track</a>
+        {% endif %}
+    </div>
+    <!-- <div class="test">
+        {% for i in response1 %}
+            <ul>{{ i }}</ul>
+        {% endfor %}
+    </div> -->
 </div>
-
-<!-- //     var config = {
-//   type: 'line',
-//   data: {
-//     datasets: [{
-//         barPercentage: 0.5,
-//         barThickness: 6,
-//         maxBarThickness: 8,
-//         minBarLength: 2,
-//       data: "{{ data|safe }}",
-//       backgroundColor: [
-//         '#696969', '#808080', '#A9A9A9', '#C0C0C0', '#D3D3D3'
-//       ],
-//       label: 'Steps'
-//     }],
-//     labels: "{{ labels|safe }}"
-//   },
-//   options: {
-//     responsive: true
-//   }
-// };
-
-// window.onload = function() {
-//   var ctx = document.getElementById('pie-chart').getContext('2d');
-//   window.myPie = new Chart(ctx, config);
-// }; -->
 <script>
+$(document).ready(function () {
 
-$(function () {
-
-var $populationChart = $("#workout-chart");
+var $populationChart = $("#line-chart");
 $.ajax({
   url: $populationChart.data("url"),
   success: function (data) {
@@ -121,11 +96,11 @@ $.ajax({
     new Chart(ctx, {
       type: 'bar',
       data: {
-        labels: "{{ data.labels }}",
+        labels: data.labels,
         datasets: [{
           label: 'Population',
           backgroundColor: 'blue',
-          data: "{{ data.data }}"
+          data: data.data
         }]          
       },
       options: {
@@ -144,5 +119,7 @@ $.ajax({
 });
 
 });
-    </script>
+
+</script>
+
 {% endblock content %}

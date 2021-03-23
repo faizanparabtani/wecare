@@ -1,29 +1,47 @@
 * {
   padding: 0;
   margin: 0;
+  max-width: 100%;
 }
 
 /* font */
 .parent_container {
   font-family: "Noto Sans", sans-serif;
+  margin-left: 3vw;
+  margin-right: 3vw;
 }
 
 /* flex center center */
 .parent_container,
-.table_container {
+.health_data {
   display: flex;
   justify-content: center;
 }
 
+.parent_container {
+  max-width: 100%;
+}
+
+.filt_form {
+  display: flex;
+  align-items: flex-start;
+  flex-direction: column;
+}
+
+.filt_form label,
+.filt_form input,
+.filt_form button {
+  margin-top: 1vh;
+}
+
+.healthcare_providers,
+.paginator,
+.listings_table {
+  margin-top: 5vh;
+}
+
 /* Phone Screen */
 @media screen and (max-width: 599px) {
-  .table_container {
-    align-items: flex-start;
-    margin-top: 20px;
-    width: 100%;
-    display: table;
-  }
-
   .listings_table {
     table-layout: fixed;
     border-collapse: collapse;
@@ -47,15 +65,8 @@
 /* Laptop Screen */
 @media screen and (min-width: 600px) {
   .parent_container {
-    width: 100%;
-    min-height: 300px;
-  }
-
-  .table_container {
-    align-items: flex-start;
-    margin-top: 50px;
     flex-direction: column;
-    width: 70%;
+    min-height: 300px;
   }
 
   .listings_table {
@@ -85,8 +96,15 @@
     border: none;
     background-color: rgb(182, 182, 182);
   }
+}
 
-  .chart {
-    width: 100%;
-  }
+#line_chart {
+  width: 100%;
+  height: 100%;
+}
+
+.chart {
+  width: 100%;
+  min-width: 500px;
+  min-height: 300px;
 }

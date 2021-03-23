@@ -4,6 +4,8 @@ from healthdata.models import HealthData
 from django.http import JsonResponse
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.paginator import Paginator
+from rest_framework.response import Response
+from rest_framework import status
 from django.views.generic import (
     ListView,
     DetailView,
@@ -23,12 +25,14 @@ def home(request):
 
 
 def dashboard(request):
+    labels = []
+    data = []
     seeker = get_object_or_404(Seeker, user=request.user)
 
     listing_filter = ListingFilter(request.GET, queryset=Listing.objects.all())
 
     # Pagination
-    paginator = Paginator(listing_filter.qs, 1)
+    paginator = Paginator(listing_filter.qs, 4)
     page_number = request.GET.get('page')
     # page_obj = paginator.get_page(page_number)
 
@@ -39,12 +43,38 @@ def dashboard(request):
     except EmptyPage:
         response = paginator.page(paginator.num_pages)
 
+    # HealthCharts
+    try:
+        user_healthdata = HealthData.objects.filter(seeker=seeker)
+        for userdata in user_healthdata:
+            labels.append(userdata.date_recorded)
+            data.append(userdata.steps)
+    except:
+        user_healthdata = None
+
+    chart_data = {
+        'labels': labels,
+        'data': data,
+    }
+
+    response1 = JsonResponse(data={
+        'data': data,
+        'labels': labels,
+    })
+    # response1 = Response(chart_data, status=status.HTTP_201_CREATED)
+
+    print(type(response1))
+
     # Setting Context to send to template
     context = {
+        'labels': labels,
+        'data': data,
         'seeker': seeker,
         'filter': listing_filter,
         'page': page_number,
-        'response': response
+        'response': response,
+        'user_healthdata': user_healthdata,
+        'response1': response1
     }
     return render(request, 'listings/dashboard.html', context)
 
@@ -59,6 +89,7 @@ def workout_chart(request):
         user_healthdata = HealthData.objects.filter(seeker=seeker)
         for userdata in user_healthdata:
             labels.append(userdata.date_recorded)
+            combined_data = []
             data.append(userdata.steps)
             print(labels, data)
     except:
