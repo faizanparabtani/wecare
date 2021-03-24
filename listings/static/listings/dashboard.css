@@ -40,6 +40,11 @@
   margin-top: 5vh;
 }
 
+canvas {
+  height: 500px;
+  width: 300px;
+}
+
 /* Phone Screen */
 @media screen and (max-width: 599px) {
   .listings_table {
@@ -101,10 +106,4 @@
 #line_chart {
   width: 100%;
   height: 100%;
-}
-
-.chart {
-  width: 100%;
-  min-width: 500px;
-  min-height: 300px;
 }

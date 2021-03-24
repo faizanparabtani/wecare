@@ -43,38 +43,16 @@ def dashboard(request):
     except EmptyPage:
         response = paginator.page(paginator.num_pages)
 
-    # HealthCharts
-    try:
-        user_healthdata = HealthData.objects.filter(seeker=seeker)
-        for userdata in user_healthdata:
-            labels.append(userdata.date_recorded)
-            data.append(userdata.steps)
-    except:
-        user_healthdata = None
-
-    chart_data = {
-        'labels': labels,
-        'data': data,
-    }
-
-    response1 = JsonResponse(data={
-        'data': data,
-        'labels': labels,
-    })
-    # response1 = Response(chart_data, status=status.HTTP_201_CREATED)
-
-    print(type(response1))
+    # User HealthData
+    user_healthdata = HealthData.objects.filter(seeker=seeker)
 
     # Setting Context to send to template
     context = {
-        'labels': labels,
-        'data': data,
         'seeker': seeker,
         'filter': listing_filter,
         'page': page_number,
         'response': response,
-        'user_healthdata': user_healthdata,
-        'response1': response1
+        'user_healthdata': user_healthdata
     }
     return render(request, 'listings/dashboard.html', context)
 
@@ -88,13 +66,11 @@ def workout_chart(request):
     try:
         user_healthdata = HealthData.objects.filter(seeker=seeker)
         for userdata in user_healthdata:
-            labels.append(userdata.date_recorded)
-            combined_data = []
+            date_recorded = userdata.date_recorded.strftime('%m/%d')
+            labels.append(date_recorded)
             data.append(userdata.steps)
-            print(labels, data)
     except:
         user_healthdata = None
-        print('Hello')
 
     return JsonResponse(data={
         'labels': labels,
