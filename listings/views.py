@@ -1,7 +1,7 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from .models import Listing
 from healthdata.models import HealthData
-from django.http import JsonResponse
+from django.http import JsonResponse, Http404
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.paginator import Paginator
 from rest_framework.response import Response
@@ -11,11 +11,13 @@ from django.views.generic import (
     DetailView,
     CreateView,
     UpdateView,
-    DeleteView
+    DeleteView,
+    FormView
 )
 from .filters import ListingFilter, HealthDataFilter
-from users.models import Seeker
+from users.models import Seeker, Provider
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from .forms import EditListingForm
 
 # from django_filters.views import FilterView
 
@@ -89,21 +91,77 @@ def providerdashboard(request):
 
 
 class ListingView(LoginRequiredMixin, DetailView):
-    paginate_by = 3
     model = Listing
-    template_name = "listings/listing.html"
 
-# Class Based Dashboard
-# class Dashboard(LoginRequiredMixin, ListView, FilterView):
+    def get(self, request, pk):
+        listing = get_object_or_404(Listing, listing_id=pk)
+        provider = listing.provider
+        provider = Provider.objects.filter(user=provider)
+        provider = provider
+        context = {
+            'provider': provider,
+            'listing': listing
+        }
+
+        return render(request, 'listings/listing.html', context)
+
+
+class MyListing(LoginRequiredMixin, UpdateView):
+    model = Listing
+    form_class = EditListingForm
+    template_name = 'listings/mylisting.html'
+    success_url = 'p_dashboard'
+
+    def form_valid(self, form):
+        return super().form_valid(form)
+
+    def get(self, request):
+        provider = get_object_or_404(Provider, user=request.user)
+        listings = Listing.objects.filter(provider=provider)
+        context = {
+            'listings': listings,
+            'provider': provider,
+        }
+        return render(request, 'listings/mylisting.html', context)
+
+
+def mylisting(request):
+    provider = get_object_or_404(Provider, user=request.user)
+    try:
+        listing = get_object_or_404(Listing, provider=provider)
+    except Http404:
+        listing = None
+    if request.method == 'POST':
+        form = EditListingForm(request.POST, instance=listing)
+        if form.is_valid():
+            form.save()
+            return redirect('mylisting')
+    else:
+        form = EditListingForm(instance=listing)
+
+    context = {
+        'form': EditListingForm,
+        'listing': listing
+    }
+    return render(request, 'listings/mylisting.html', context)
+
+# class EditListing(LoginRequiredMixin, DetailView):
 #     model = Listing
-#     template_name = 'listings/dashboard.html'
 
-#     context_object_name = 'listings'
+#     def(self, request, pk):
+#         listing = Listing
 
-#     def search(request):
-#         listing = Listing.objects.all()
-#         listing_filter = ListingFilter(request.GET, queryset=listing)
-#         return {'filter': listing_filter}
+    # Class Based Dashboard
+    # class Dashboard(LoginRequiredMixin, ListView, FilterView):
+    #     model = Listing
+    #     template_name = 'listings/dashboard.html'
+
+    #     context_object_name = 'listings'
+
+    #     def search(request):
+    #         listing = Listing.objects.all()
+    #         listing_filter = ListingFilter(request.GET, queryset=listing)
+    #         return {'filter': listing_filter}
     # ordering = ['-date_posted']
 
     # def get_queryset(self):

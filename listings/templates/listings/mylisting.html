@@ -1,5 +1,22 @@
 {% extends "listings/base.html" %}
 {% load static %}
 {% block content %}
-<h1>{{ healthdata.seeker}}</h1>
+{% if listing == None %}
+    <h1>Add your Listing</h1>
+    <form method="POST">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" value="Change Listing">
+    </form>
+{% else %}
+    <h1>{{ listing.description }}</h1>
+    <h1>{{ listing.ethnicity }}</h1>
+    <h1>{{ listing.speciality }}</h1>
+    <h1>{{ listing.consultation_charges }}</h1>
+    <form method="POST">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" value="Change Listing">
+    </form>
+{% endif  %}
 {% endblock content %}

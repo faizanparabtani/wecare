@@ -20,4 +20,8 @@ urlpatterns = [
     path('providerdashboard', listings.providerdashboard, name='p_dashboard'),
     path('track', AddDataView.as_view(), name='track'),
     path('users/', include('users.urls')),
+    path('mylisting/', listings.mylisting, name='mylisting'),
+
+    # path('profile/', users.provider_setting, name='p_profile')
+    # path('mylisting/', listings.MyListing.as_view(), name='mylisting'),
 ]

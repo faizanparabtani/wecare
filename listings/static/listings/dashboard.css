@@ -18,6 +18,11 @@
   justify-content: center;
 }
 
+.health_data h2 {
+  font-size: 10px;
+  max-width: min-content;
+}
+
 .parent_container {
   max-width: 100%;
 }
@@ -47,6 +52,10 @@ canvas {
 
 /* Phone Screen */
 @media screen and (max-width: 599px) {
+  .parent_container {
+    flex-direction: column;
+    /* min-height: 300px; */
+  }
   .listings_table {
     table-layout: fixed;
     border-collapse: collapse;
