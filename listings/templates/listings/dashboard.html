@@ -6,6 +6,17 @@
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>
 <div class="parent_container">
+    <div class="welcome">
+        {% if user_healthdata == None %}
+            <h2>Welcome {{ seeker }} Start tracking your fitness and healthdata</h2>
+            <a href="{% url 'track' %}">Track</a>
+        {% else %}
+            <h2>Welcome {{ seeker }} Your healthdata was last recorded on {{ latest_date.date_recorded|date:"F d, Y" }}
+                <span><a href="{% url 'track' %}">Track</a></span>
+            </h2>
+        {% endif %}
+    </div>
+
     <div class="demographics">
         <h1>Facts</h1>
         <p>
@@ -14,22 +25,21 @@
             Id veniam, ea amet iusto quo inventore quam praesentium eveniet mollitia quis consectetur tenetur magnam eligendi nisi, omnis quae impedit dolorum quas, laborum aliquam cum. Numquam odit veniam autem eaque.
             Exercitationem blanditiis recusandae est modi atque ipsa sed, illo voluptatibus ullam tenetur dignissimos vitae nesciunt, doloremque, ad eligendi delectus numquam debitis magni labore ut ducimus suscipit. Soluta corrupti voluptate itaque.
             Nisi ratione consequatur ex delectus impedit eius, cupiditate ab deserunt laboriosam facere minus voluptatibus. Optio repudiandae, magnam vel harum similique at illum possimus, impedit, modi mollitia doloremque? Saepe, eligendi aperiam.
-        </p>
-        
+        </p>    
     </div>
+
     <!-- <div class="healthdata">
         <h2>Welcome {{ seeker }}</h2>
         {% if user_healthdata == None %}
             <h2>Start tracking your fitness and healthdata</h2>
             <a href="{% url 'track' %}">Track</a>
         {% else %}
-            <h2>Your healthdata was last recorded on {{ user_healthdata.date_recorded|date:"F d, Y" }}</h2>
-            <div class="chart">
-                <canvas id="line-chart" data-url="{% url 'workout_chart' %}" width="300px" height="200px"></canvas>
-            </div>
+            <h2>Your healthdata was last recorded on {{ latest_date.date_recorded|date:"F d, Y" }}</h2>
+            
             <a href="{% url 'track' %}">Track</a>
         {% endif %}
     </div> -->
+    <hr>
     <div class="healthcare_providers">
         <h2>Filter HealthCare Providers</h2>
         <div class="filt_cont">
@@ -77,7 +87,7 @@
 </div>
 
 
-<script>
+<!-- <script>
 $(document).ready(function () {
 
 var $stepsChart = $("#line-chart");
@@ -132,6 +142,6 @@ $.ajax({
 
 });
 
-</script>
+</script> -->
 
 {% endblock content %}

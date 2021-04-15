@@ -1,12 +1,103 @@
 {% extends "listings/base.html" %}
 {% load static %}
 {% block content %}
-<h1>Track</h1>
-<div class="data_form">
-    <form method="POST">
-        {% csrf_token %}
-        {{ form }}
-        <button type="submit">Add</button>
-    </form>
+<title>Track</title>
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>
+<link rel="stylesheet" href="{% static 'healthdata/track.css' %}">
+<div class='maincontent'>
+  <div>
+    <h2>Your healthdata was last recorded on {{ latest_date.date_recorded|date:"F d, Y" }}</h2>
+  </div>
+  <div class="formandchart">
+    <div class="chart">
+      <canvas id="line-chart" data-url="{% url 'workout_chart' %}" width="300px" height="200px"></canvas>
+    </div>
+    <div class="data_form">
+      <form method="POST">
+          {% csrf_token %}
+          {{ form }}
+          <button type="submit">Add</button>
+      </form>
+    </div>
+  </div>
+  <div class="datareport">
+    <h2>Data Report</h2>
+    <table class="listings_table">
+      <thead>
+          <tr>
+              <th>Steps</th>
+              <th>Heart Rate</th>
+              <th>Blood Pressure</th>
+          </tr>
+      </thead>
+      {% for listing in response %}
+          <tr>
+              <td><a href="{% url 'listing' listing.listing_id %}">{{ listing.provider }}</a></td>
+              <td>{{ listing.speciality }}</td>
+              <td>{{ listing.ethnicity }}</td>
+          </tr>
+      {% endfor %}
+  </table>
+  </div>
 </div>
+
+
+
+<script>
+    $(document).ready(function () {
+    
+    var $stepsChart = $("#line-chart");
+    $.ajax({
+      url: $stepsChart.data("url"),
+      success: function (data) {
+    
+        var ctx = $stepsChart[0].getContext("2d");
+    
+        new Chart(ctx, {
+          type: 'line',
+          data: {
+            labels: data.labels,
+            datasets: [{
+              label: 'Steps',
+              backgroundColor: 'blue',
+              data: data.data,
+              backgroundColor: [
+                  'rgba(255, 99, 132, 0.2)',
+                  'rgba(54, 162, 235, 0.2)',
+                  'rgba(255, 206, 86, 0.2)',
+                  'rgba(75, 192, 192, 0.2)',
+                  'rgba(153, 102, 255, 0.2)',
+                  'rgba(255, 159, 64, 0.2)'
+                ],
+                borderColor: [
+                  'rgba(255, 99, 132, 1)',
+                  'rgba(54, 162, 235, 1)',
+                  'rgba(255, 206, 86, 1)',
+                  'rgba(75, 192, 192, 1)',
+                  'rgba(153, 102, 255, 1)',
+                  'rgba(255, 159, 64, 1)'
+                ],
+                borderWidth: 1,
+                fill: false,
+            }]          
+          },
+          options: {
+            responsive: false,
+            legend: {
+              position: 'top',
+            },
+            title: {
+              display: true,
+              text: 'Steps'
+            },
+          }
+        });
+    
+      }
+    });
+    
+    });
+    
+    </script>
 {% endblock content %}

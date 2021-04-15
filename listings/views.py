@@ -47,6 +47,7 @@ def dashboard(request):
 
     # User HealthData
     user_healthdata = HealthData.objects.filter(seeker=seeker)
+    latest_date = user_healthdata.reverse()[0]
 
     # Setting Context to send to template
     context = {
@@ -54,30 +55,10 @@ def dashboard(request):
         'filter': listing_filter,
         'page': page_number,
         'response': response,
-        'user_healthdata': user_healthdata
+        'user_healthdata': user_healthdata,
+        'latest_date': latest_date
     }
     return render(request, 'listings/dashboard.html', context)
-
-
-def workout_chart(request):
-    labels = []
-    data = []
-
-    seeker = get_object_or_404(Seeker, user=request.user)
-
-    try:
-        user_healthdata = HealthData.objects.filter(seeker=seeker)
-        for userdata in user_healthdata:
-            date_recorded = userdata.date_recorded.strftime('%m/%d')
-            labels.append(date_recorded)
-            data.append(userdata.steps)
-    except:
-        user_healthdata = None
-
-    return JsonResponse(data={
-        'labels': labels,
-        'data': data,
-    })
 
 
 def providerdashboard(request):

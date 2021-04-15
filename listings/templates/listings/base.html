@@ -5,9 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>WeCare</title>
     {% load static %}
+    <link rel="stylesheet" href="{% static 'listings/base.css' %}"/>
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans&display=swap" rel="stylesheet"> 
-    <link rel="stylesheet" href="{% static 'listings/base.css' %}"/>
 </head>
 <body>
   <div class="nav">
@@ -56,7 +56,7 @@
     {% endfor %}
   {% endif %}
   {% block content %}{% endblock %}
-  <!-- <footer>
+  <footer>
     <div class="logo_footer">
       <h1>WeCare</h1>
     </div>
@@ -64,7 +64,7 @@
       <a href="">About Us</a>
       <a href="">Contact Us</a>
     </div>
-  </footer> -->
+  </footer>
 </body>
 
 <script>
