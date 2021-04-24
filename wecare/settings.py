@@ -21,6 +21,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'django_filters',
     'rest_framework',
     'listings.apps.ListingsConfig',
     'healthdata.apps.HealthdataConfig',

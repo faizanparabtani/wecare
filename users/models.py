@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 from django.shortcuts import reverse
+from django.utils import timezone
 
 
 class User(AbstractUser):
@@ -43,3 +44,12 @@ class Provider(models.Model):
 
     def get_absolute_url(self):
         return reverse('users/p_profile', kwargs={'pk': self.pk})
+
+
+class IsConsulting(models.Model):
+    seeker = models.OneToOneField(
+        Seeker, on_delete=models.RESTRICT)
+    provider = models.OneToOneField(
+        Provider, on_delete=models.RESTRICT)
+    date_added = models.DateTimeField(default=timezone.now)
+    date_removed = models.DateTimeField(blank=True, null=True)

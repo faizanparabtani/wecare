@@ -6,6 +6,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.paginator import Paginator
 from rest_framework.response import Response
 from rest_framework import status
+from urllib.error import HTTPError
 from django.views.generic import (
     ListView,
     DetailView,
@@ -15,9 +16,9 @@ from django.views.generic import (
     FormView
 )
 from .filters import ListingFilter, HealthDataFilter
-from users.models import Seeker, Provider
+from users.models import User, Seeker, Provider, IsConsulting
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-from .forms import EditListingForm
+from .forms import EditListingForm, AddSeekerForm
 
 # from django_filters.views import FilterView
 
@@ -62,9 +63,29 @@ def dashboard(request):
 
 
 def providerdashboard(request):
+    user_lis = []
+    if request.method == 'POST':
+        form = AddSeekerForm(request.POST, instance=request.user)
+        if form.is_valid():
+            form.save()
+            return redirect('p_dashboard')
+        else:
+            form = AddSeekerForm(instance=request.user)
+
+    # user = User.objects.filter(provider=request.user)
+    provider = get_object_or_404(Provider, user=request.user)
+    is_consulting = IsConsulting.objects.filter(provider=provider)
+    if is_consulting != None:
+        for i in is_consulting:
+            try us = get_object_or_404(HealthData, user=i.seeker):
+                user_lis.append(us)
+            except HTTPError:
+                pass
+
     healthdata = HealthData.objects.all()
     healthdata_filter = HealthDataFilter(request.GET, queryset=healthdata)
     context = {
+        'form': AddSeekerForm,
         'healthdata': HealthData.objects.all(),
         'healthdata_filter': healthdata_filter
     }

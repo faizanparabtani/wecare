@@ -6,11 +6,17 @@
 <h1>Patient Health Data</h1>
 <div class="parent_container">
     <div class="table_container">
-        <!-- <h2>Filter HealthCare Providers</h2> -->
         <form method="get">
             {{ healthdata_filter.form.as_p }}
             <button type="submit">Search</button>
         </form>
+
+        <div class="add_seeker">
+            <form method="POST">
+                {{ form }}
+                <button type="submit">Add Seeker</button>
+            </form>
+        </div>
         <table class="listings_table">
             <thead>
                 <tr>

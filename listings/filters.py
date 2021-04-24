@@ -13,6 +13,9 @@ class ListingFilter(django_filters.FilterSet):
 
 
 class HealthDataFilter(django_filters.FilterSet):
+    date_recorded = django_filters.DateFromToRangeFilter(
+        widget=django_filters.widgets.RangeWidget(attrs={'placeholder': 'YYYY/MM/DD'}))
+
     class Meta:
         model = HealthData
         fields = ['seeker', 'date_recorded']
