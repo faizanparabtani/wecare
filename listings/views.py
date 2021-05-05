@@ -115,7 +115,7 @@ class ListingView(LoginRequiredMixin, DetailView):
         listing = get_object_or_404(Listing, listing_id=pk)
         provider = listing.provider
         provider = Provider.objects.filter(user=provider)
-        provider = provider
+        provider = provider[0]
         context = {
             'provider': provider,
             'listing': listing

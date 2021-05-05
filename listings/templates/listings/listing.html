@@ -1,10 +1,15 @@
 {% extends "listings/base.html" %}
 {% load static %}
 {% block content %}
-<div class="listing_container">
-    <h1>{{listing.provider}} {{ listing.speciality}}</h1>
+<link rel="stylesheet" href="{% static 'listings/listing.css' %}">
+<div class="main_cont">
+    <div class="listing_container">
+        <h1>{{ provider.designation }}&nbsp;&nbsp;{{ listing.provider }}</h1>
+        <h2>Speciality:&nbsp;&nbsp;{{ listing.speciality }}</h2>
+        <p>{{ listing.description }}</p>
+        <h2 class="charges">Consultation Charges: {{ listing.consultation_charges }}</h2>
+    </div>
 </div>
 
-<h1></h1>
-<h1>{{ listing.consultation_charges}}</h1>
+
 {% endblock content %}
