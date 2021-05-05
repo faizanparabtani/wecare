@@ -47,9 +47,12 @@ class Provider(models.Model):
 
 
 class IsConsulting(models.Model):
-    seeker = models.OneToOneField(
-        Seeker, on_delete=models.RESTRICT)
-    provider = models.OneToOneField(
-        Provider, on_delete=models.RESTRICT)
+    seeker = models.ForeignKey(
+        Seeker, related_name='seeker', on_delete=models.CASCADE)
+    provider = models.ForeignKey(
+        Provider, on_delete=models.CASCADE, related_name='provider')
     date_added = models.DateTimeField(default=timezone.now)
     date_removed = models.DateTimeField(blank=True, null=True)
+
+    def __str__(self):
+        return f'{self.seeker} is consulting {self.provider}'

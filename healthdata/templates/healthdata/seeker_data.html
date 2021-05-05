@@ -1,0 +1,29 @@
+{% extends "listings/base.html" %}
+{% load static %}
+{% block content %}
+
+<table class="listings_table">
+    <thead>
+        <tr>
+            <th>Seeker</th>
+            <th>Weight</th>
+            <th>Steps</th>
+            <th>Heart Rate</th>
+            <th>Date Recorded</th>
+        </tr>
+    </thead>
+    
+    {% for healthdata in healthdata_filter.qs %}
+        <tr>
+            <td><a>{{ healthdata.seeker }}</a></td>
+            <td>{{ healthdata.weight }}</td>
+            <td>{{ healthdata.steps }}</td>
+            <td>{{ healthdata.heartrate }}</td>
+            <td>{{ healthdata.date_recorded }}</td>
+            <!-- <td><a>Know More </a></td> -->
+        </tr>
+        
+    {% endfor %}
+</table>
+
+{% endblock content %}

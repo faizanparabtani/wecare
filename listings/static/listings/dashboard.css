@@ -9,6 +9,9 @@
   font-family: "Noto Sans", sans-serif;
   margin-left: 3vw;
   margin-right: 3vw;
+  /* flex-wrap: wrap; */
+  flex-direction: column;
+  position: relative;
 }
 
 /* flex center center */
@@ -80,7 +83,6 @@ canvas {
 @media screen and (min-width: 600px) {
   .parent_container {
     flex-direction: column;
-    min-height: 300px;
   }
 
   .listings_table {
@@ -112,7 +114,93 @@ canvas {
   }
 }
 
+/* Common Styles */
+
 #line_chart {
   width: 100%;
   height: 100%;
+}
+
+/* Pagination Css */
+.paginator a {
+  text-decoration: none;
+  display: inline-block;
+  padding: 8px 16px;
+}
+
+.paginator a:hover {
+  background-color: rgb(43, 43, 43);
+  color: white;
+  transition: 0.5s;
+}
+
+.previous {
+  background-color: #f1f1f1;
+  color: black;
+}
+
+.next {
+  background-color: #04aa6d;
+  color: white;
+}
+
+.round {
+  border-radius: 50%;
+}
+
+.demographics {
+  max-width: 100%;
+  border: 3px solid black;
+  padding: 10px;
+  margin-top: 2vh;
+}
+
+.demographics p {
+  max-width: 100%;
+  word-wrap: break-word;
+}
+
+.welcome {
+  margin-top: 2vh;
+}
+
+.track_url {
+  font-family: "Noto Sans", sans-serif;
+  padding-left: 3px;
+  padding-right: 3px;
+  font-size: 2.5vh;
+  text-decoration: none;
+  color: black;
+  border: 3px solid black;
+  margin-left: 3vh;
+}
+
+.track_url:hover {
+  color: white;
+  background-color: rgb(43, 43, 43);
+  transition: 0.5s;
+}
+
+hr {
+  margin-top: 5vh;
+}
+
+.provider_name {
+  text-decoration: none;
+  color: rgb(48, 48, 48);
+}
+
+.filter_submit {
+  font-family: "Noto Sans", sans-serif;
+  font-size: 2vh;
+  border-radius: 0;
+  border: 2px solid black;
+  padding-left: 3vh;
+  padding-right: 3vh;
+}
+
+.filter_submit:hover {
+  color: white;
+  background-color: rgb(43, 43, 43);
+  transition: 0.5s;
 }

@@ -1,5 +1,6 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from .models import Listing
+from itertools import chain
 from healthdata.models import HealthData
 from django.http import JsonResponse, Http404
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -19,6 +20,7 @@ from .filters import ListingFilter, HealthDataFilter
 from users.models import User, Seeker, Provider, IsConsulting
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from .forms import EditListingForm, AddSeekerForm
+from healthdata.models import HealthData
 
 # from django_filters.views import FilterView
 
@@ -64,6 +66,11 @@ def dashboard(request):
 
 def providerdashboard(request):
     user_lis = []
+    qs_list = []
+    qs_filter = []
+    us_count = 0
+
+    qs = HealthData.objects.none()
     if request.method == 'POST':
         form = AddSeekerForm(request.POST, instance=request.user)
         if form.is_valid():
@@ -71,23 +78,32 @@ def providerdashboard(request):
             return redirect('p_dashboard')
         else:
             form = AddSeekerForm(instance=request.user)
-
-    # user = User.objects.filter(provider=request.user)
     provider = get_object_or_404(Provider, user=request.user)
-    is_consulting = IsConsulting.objects.filter(provider=provider)
-    if is_consulting != None:
-        for i in is_consulting:
-            try us = get_object_or_404(HealthData, user=i.seeker):
-                user_lis.append(us)
-            except HTTPError:
-                pass
+    is_consulting = IsConsulting.objects.filter(
+        provider=provider).values_list('seeker', flat=True)
 
-    healthdata = HealthData.objects.all()
-    healthdata_filter = HealthDataFilter(request.GET, queryset=healthdata)
+    if is_consulting != None:
+        us = HealthData.objects.filter(seeker__in=is_consulting)
+        healthdata_filter = HealthDataFilter(
+            request.GET, queryset=us)
+        # for i in us:
+        #     if i.seeker not in user_lis:
+        #         us_count = us.filter(seeker=i.seeker).count()
+        #         user_lis.append(i.seeker)
+        #         qs_filter.append(i)
+        #         qs_list.append([i.seeker, us_count])
+
+    else:
+        healthdata_filter = None
+        us = None
+
+    # print(new_qs, type(us))
+    # print(qs_list[0][0].seeker)
     context = {
         'form': AddSeekerForm,
-        'healthdata': HealthData.objects.all(),
-        'healthdata_filter': healthdata_filter
+        'healthdata_filter': healthdata_filter,
+        'us': us,
+        'qs_list': qs_list
     }
     return render(request, 'listings/provider_dashboard.html', context)
 

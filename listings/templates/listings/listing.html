@@ -1,7 +1,10 @@
 {% extends "listings/base.html" %}
 {% load static %}
 {% block content %}
-<h1>Listing {{ listing.provider}}</h1>
-<h1>{{ listing.specialty}}</h1>
+<div class="listing_container">
+    <h1>{{listing.provider}} {{ listing.speciality}}</h1>
+</div>
+
+<h1></h1>
 <h1>{{ listing.consultation_charges}}</h1>
 {% endblock content %}
