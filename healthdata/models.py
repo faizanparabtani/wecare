@@ -16,4 +16,10 @@ class HealthData(models.Model):
         return f'{self.seeker} on {self.date_recorded}'
 
 
-# class Consulting(models.Model):
+class Fact(models.Model):
+    ethnicity = models.CharField(max_length=30)
+    fact = models.TextField(max_length=300)
+    date_added = models.DateTimeField(default=timezone.now)
+
+    def __str__(self):
+        return f'{self.ethnicity}'

@@ -32,7 +32,7 @@ class provider_register(CreateView):
     form_class = ProviderSignUpForm
     template_name = 'users/provider_register.html'
 
-    def form_valid(self, form):
+    def form_valid(self, form, request):
         user = form.save()
         messages.success(
             request, f'Your account has been created! You are now able to log in')

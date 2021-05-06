@@ -8,11 +8,10 @@
 }
 
 @media screen and (max-width: 599px) {
-  .parent_container h1{
+  .parent_container h1 {
     font-size: 1em;
   }
 }
-
 
 #id_username,
 #id_email,
@@ -22,12 +21,11 @@
 #id_location,
 #id_designation,
 #id_password1,
-#id_password2 {
+#id_password2,
+#id_ethnicity {
   float: right;
   font-size: 15px;
   padding: 5px;
   border: none;
   background-color: rgb(182, 182, 182);
 }
-
-

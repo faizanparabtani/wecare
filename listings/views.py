@@ -20,7 +20,7 @@ from .filters import ListingFilter, HealthDataFilter
 from users.models import User, Seeker, Provider, IsConsulting
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from .forms import EditListingForm, AddSeekerForm
-from healthdata.models import HealthData
+from healthdata.models import HealthData, Fact
 
 # from django_filters.views import FilterView
 
@@ -33,6 +33,9 @@ def dashboard(request):
     labels = []
     data = []
     seeker = get_object_or_404(Seeker, user=request.user)
+
+    fact = Fact.objects.filter(ethnicity=seeker.ethnicity)
+    fact = fact[0].fact
 
     listing_filter = ListingFilter(request.GET, queryset=Listing.objects.all())
 
@@ -50,10 +53,14 @@ def dashboard(request):
 
     # User HealthData
     user_healthdata = HealthData.objects.filter(seeker=seeker)
-    latest_date = user_healthdata.reverse()[0]
+    if len(user_healthdata) > 0:
+        latest_date = user_healthdata.reverse()[0]
+    else:
+        latest_date = None
 
     # Setting Context to send to template
     context = {
+        'fact': fact,
         'seeker': seeker,
         'filter': listing_filter,
         'page': page_number,

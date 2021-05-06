@@ -31,7 +31,7 @@
     display: none;
   }
 
-  .form_container{
+  .form_container {
     min-height: 30vw;
   }
   .login_container {
@@ -62,7 +62,7 @@
     float: left;
   }
 
-  label{
+  label {
     max-width: 100px;
   }
   .loginform input {
@@ -79,13 +79,26 @@
   } */
 
   .submit {
-    margin-top: 20px;
+    /* margin-top: 20px;
     font-weight: bold;
     border: 0;
     color: white;
     background-color: var(--primary);
     min-height: 40px;
-    min-width: 100px;
+    min-width: 100px; */
+    font-family: "Noto Sans", sans-serif;
+    font-size: 2vh;
+    border-radius: 0;
+    border: 2px solid black;
+    padding-left: 3vh;
+    padding-right: 3vh;
+    margin-left: 3vh;
+  }
+
+  .submit:hover {
+    color: white;
+    background-color: rgb(43, 43, 43);
+    transition: 0.5s;
   }
 
   .girl_workout {
@@ -163,13 +176,27 @@
   }
 
   .submit {
-    font-weight: bold;
+    /* font-weight: bold;
     border: 0;
     color: white;
-    background-color: var(--primary);
+    background-color: var(--primary); */
     min-height: 40px;
     min-width: 100px;
+    font-family: "Noto Sans", sans-serif;
+    font-size: 2.5vh;
+    border-radius: 0;
+    border: 2px solid black;
+    padding-left: 3vh;
+    padding-right: 3vh;
+    margin-left: 3vh;
   }
+
+  .submit:hover {
+    color: white;
+    background-color: rgb(43, 43, 43);
+    transition: 0.5s;
+  }
+
   .helptext {
     display: none;
   }
