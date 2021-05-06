@@ -53,7 +53,7 @@
     <div class="paginator">
         <span>
             {% if response.has_previous %}
-                <a href="?{% query_transform request page=1 %}">&#8249; first</a>
+                <a class="paglink" href="?{% query_transform request page=1 %}">&#8249; first</a>
                 <a class="previous round" href="?{% query_transform request page=response.previous_page_number %}">&#8249;</a>
             {% endif %}
 
@@ -63,7 +63,7 @@
 
             {% if response.has_next %}
                 <a class="previous round" href="?{% query_transform request page=response.next_page_number %}">&#8250;</a>
-                <a href="?{% query_transform request page=response.paginator.num_pages %}">last &raquo;</a>
+                <a class="paglink" href="?{% query_transform request page=response.paginator.num_pages %}">last &raquo;</a>
             {% endif %}
         </span>
     </div>

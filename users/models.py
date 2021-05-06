@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib.auth.models import AbstractUser
 from django.shortcuts import reverse
 from django.utils import timezone
+# from .import urls as users
 
 
 class User(AbstractUser):
@@ -29,7 +30,7 @@ class Seeker(models.Model):
         return f'{self.user.first_name} {self.user.last_name}'
 
     def get_absolute_url(self):
-        return reverse('users/s_profile', kwargs={'pk': self.pk})
+        return reverse('s_profile', kwargs={'pk': self.pk})
 
 
 class Provider(models.Model):
@@ -43,7 +44,7 @@ class Provider(models.Model):
         return f'{self.user.first_name} {self.user.last_name}'
 
     def get_absolute_url(self):
-        return reverse('users/p_profile', kwargs={'pk': self.pk})
+        return reverse('p_profile', kwargs={'pk': self.pk})
 
 
 class IsConsulting(models.Model):

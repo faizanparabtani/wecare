@@ -2,11 +2,12 @@
 {% load static %}
 {% block content %}
 <title>Track</title>
+<link rel="stylesheet" href="{% static 'healthdata/track.css' %}">
+<link rel="stylesheet" href="{% static 'listings/dashboard.css' %}">
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>
-<link rel="stylesheet" href="{% static 'healthdata/track.css' %}">
 <div class='maincontent'>
-  <div>
+  <div class="last_record">
     <h2>Your healthdata was last recorded on {{ latest_date.date_recorded|date:"F d, Y" }}</h2>
   </div>
   <div class="formandchart">
@@ -14,15 +15,16 @@
       <canvas id="line-chart" data-url="{% url 'workout_chart' %}" width="300px" height="200px"></canvas>
     </div>
     <div class="data_form">
+      <h1>Track your Health by entering data below!</h1>
       <form method="POST">
           {% csrf_token %}
           {{ form }}
-          <button type="submit">Add</button>
+          <button class="add" type="submit">Add</button>
       </form>
     </div>
   </div>
   <div class="datareport">
-    <h2>Data Report</h2>
+    <h2>Your Records</h2>
     <table class="listings_table">
       <thead>
           <tr>
@@ -31,11 +33,11 @@
               <th>Blood Pressure</th>
           </tr>
       </thead>
-      {% for listing in response %}
+      {% for hd in healthdata %}
           <tr>
-              <td><a href="{% url 'listing' listing.listing_id %}">{{ listing.provider }}</a></td>
-              <td>{{ listing.speciality }}</td>
-              <td>{{ listing.ethnicity }}</td>
+              <td><a>{{ hd.steps }}</a></td>
+              <td>{{ hd.weight }}</td>
+              <td>{{ hd.bloodpressure }}</td>
           </tr>
       {% endfor %}
   </table>

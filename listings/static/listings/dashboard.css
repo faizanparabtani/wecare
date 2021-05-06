@@ -204,3 +204,8 @@ hr {
   background-color: rgb(43, 43, 43);
   transition: 0.5s;
 }
+
+.paglink {
+  text-decoration: none;
+  color: black;
+}

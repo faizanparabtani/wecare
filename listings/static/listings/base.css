@@ -127,14 +127,14 @@ body {
   }
   footer {
     display: flex;
-    position: absolute;
+    position: relative;
     width: 100%;
     background-color: black;
     bottom: 0;
     min-height: 100px;
     justify-content: space-around;
     align-items: center;
-    margin-top: auto;
+    margin-top: 4vh;
   }
 }
 /* Laptop Screen */
@@ -151,6 +151,11 @@ body {
     justify-content: center;
     align-items: center;
     font-family: "Noto Sans", sans-serif;
+  }
+
+  .page_container {
+    position: relative;
+    min-height: 100vh;
   }
 
   .logo_container {
@@ -273,15 +278,15 @@ body {
   }
 
   footer {
+    position: relative;
     display: flex;
     width: 100%;
     background-color: black;
-    position: absolute;
     bottom: 0;
     min-height: 140px;
     justify-content: space-around;
     align-items: center;
-    /* margin-top: auto; */
+    margin-top: 2vh;
   }
 
   footer h1 {
@@ -295,15 +300,16 @@ body {
   }
 }
 
-footer {
+/* footer {
+  position: relative;
   display: flex;
   width: 100%;
   bottom: 0;
   background-color: black;
   justify-content: space-around;
   align-items: center;
-  margin-top: auto;
-}
+  margin-top: 2vh;
+} */
 
 footer h1 {
   color: white;

@@ -6,6 +6,8 @@ from .forms import SeekerSignUpForm, ProviderSignUpForm, UserUpdateForm, SeekerP
 from django.contrib.auth.forms import AuthenticationForm
 from .models import User, Seeker, Provider
 from django.views.generic.edit import UpdateView
+from django.urls import reverse_lazy
+from django.contrib.messages.views import SuccessMessageMixin
 
 
 def register(request):
@@ -81,12 +83,14 @@ class SeekerProfile(UpdateView):
     model = Seeker
     fields = ['phone_number', 'medicaid_recepient', 'location']
     template_name_suffix = '_update_form'
+    success_message = 'Profile Updated Successfully'
 
 
 class ProviderProfile(UpdateView):
     model = Provider
     fields = ['phone_number', 'designation']
     template_name_suffix = '_update_form'
+    success_message = 'Profile Updated Successfully'
 
 
 def logout_view(request):

@@ -3,12 +3,20 @@
 {% block content %}
 <link rel="stylesheet" href="{% static 'listings/base.css' %}">
 <link rel="stylesheet" href="{% static 'users/login.css' %}">
+<link rel="stylesheet" href="{% static 'users/settings.css' %}">
 <div class="parent_container">
     <h1>Profile Update</h1>
     <div class="login_container">
         <div class="svgform">
             <div class="girl">
                 <img class="girl_workout" src="{% static 'users/login.svg' %}" alt="Get Started">
+            </div>
+            <div class="success_message">
+                {% if messages %}
+                    {% for m in messages %}
+                        <li {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ m }}</li>
+                    {% endfor %}
+                {% endif %} 
             </div>
             <div class="form_container">
                 <form method="POST" class="loginform">
