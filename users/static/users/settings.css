@@ -4,7 +4,8 @@ footer {
 }
 
 #id_phone_number,
-#id_location {
+#id_location,
+#id_designation {
   float: right;
   font-size: 2vh;
   padding: 5px;
@@ -29,4 +30,9 @@ footer {
   color: white;
   background-color: rgb(43, 43, 43);
   transition: 0.5s;
+}
+
+footer {
+  position: absolute;
+  bottom: 0;
 }

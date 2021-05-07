@@ -1,21 +1,28 @@
 {% extends "listings/base.html" %}
 {% load static %}
-{% block content %}
-<link rel="stylesheet" href="{% static 'listings/provider_dashboard.css' %}">
+{% block content %} 
 <link rel="stylesheet" href="{% static 'listings/dashboard.css' %}">
-<h1>Patient Health Data</h1>
+<link rel="stylesheet" href="{% static 'listings/provider_dashboard.css' %}">
+<!-- <h1>Patient Health Data</h1> -->
 <div class="parent_container">
     <div class="table_container">
-        <form method="get">
-            {{ healthdata_filter.form.as_p }}
-            <button type="submit">Search</button>
-        </form>
-
-        <div class="add_seeker">
-            <form method="POST">
-                {{ form }}
-                <button type="submit">Add Seeker</button>
-            </form>
+        <div class="form_cont">
+            <div class="search_seeker">
+                <h3>Search a seeker</h3>
+                <form method="get">
+                    {% csrf_token %}
+                    {{ healthdata_filter.form.as_p }}
+                    <button class="submit" type="submit">Search</button>
+                </form>
+            </div>
+            <div class="add_seeker">
+                <h3>Add a Patient to your list</h3>
+                <form method="POST">
+                    {% csrf_token %}
+                    {{ form }}
+                    <button class="submit" type="submit">Add Seeker</button>
+                </form>
+            </div>
         </div>
         <table class="listings_table">
             <thead>

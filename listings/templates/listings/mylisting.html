@@ -1,22 +1,33 @@
 {% extends "listings/base.html" %}
 {% load static %}
 {% block content %}
+<link rel="stylesheet" href="{% static 'listings/listing.css' %}">
 {% if listing == None %}
-    <h1>Add your Listing</h1>
+<div class="main_listing">
+    <h3>Add your Listing</h3>
     <form method="POST">
         {% csrf_token %}
         {{ form.as_p }}
-        <input type="submit" value="Change Listing">
+        <input class="change" type="submit" value="Add Listing">
     </form>
+</div>
 {% else %}
-    <h1>{{ listing.description }}</h1>
-    <h1>{{ listing.ethnicity }}</h1>
-    <h1>{{ listing.speciality }}</h1>
-    <h1>{{ listing.consultation_charges }}</h1>
-    <form method="POST">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <input type="submit" value="Change Listing">
-    </form>
+    <div class="main_listing">
+        <!-- <h1>{{ listing.description }}</h1>
+        <h1>{{ listing.ethnicity }}</h1>
+        <h1>{{ listing.speciality }}</h1>
+        <h1>{{ listing.consultation_charges }}</h1> -->
+        <div class="listing">
+            <h3>Current Description:</h3>
+            <p>{{ listing.description }}</p>
+            <br>
+            <h3>Current Fee: {{ listing.consultation_charges }}</h3>
+            <form method="POST">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <input class="change" type="submit" value="Change Listing">
+            </form>
+        </div>
+    </div>
 {% endif  %}
 {% endblock content %}

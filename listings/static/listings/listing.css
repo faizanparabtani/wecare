@@ -49,3 +49,61 @@
     font-size: 2vh;
   }
 }
+
+.main_list {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.listing {
+  font-family: "Noto Sans", sans-serif;
+  margin-left: 5vh;
+  margin-right: 5vh;
+  margin-top: 3vh;
+  padding: 3vh;
+  border: 2px solid black;
+}
+
+form p {
+  display: flex;
+  align-items: center;
+}
+
+label {
+  /* margin: 3vh; */
+}
+
+#id_description,
+#id_consultation_charges {
+  font-size: 10px;
+  padding: 5px;
+  border: none;
+  background-color: rgb(182, 182, 182);
+  margin: 3vh;
+}
+
+#id_description {
+  max-height: 3vh;
+  min-width: 70%;
+}
+
+footer {
+  position: absolute;
+  bottom: 0;
+}
+
+.change {
+  font-family: "Noto Sans", sans-serif;
+  font-size: 2vh;
+  border-radius: 0;
+  border: 2px solid black;
+  padding-left: 3vh;
+  padding-right: 3vh;
+}
+
+.change:hover {
+  color: white;
+  background-color: rgb(43, 43, 43);
+  transition: 0.5s;
+}
