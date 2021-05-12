@@ -19,7 +19,7 @@
       <form method="POST">
           {% csrf_token %}
           {{ form }}
-          <button class="add" type="submit">Add</button>
+          <input class="add" type="submit" value="Add">
       </form>
     </div>
   </div>
@@ -37,7 +37,7 @@
           <tr>
               <td><a>{{ hd.steps }}</a></td>
               <td>{{ hd.weight }}</td>
-              <td>{{ hd.bloodpressure }}</td>
+              <td>{{ hd.blood_pressure }}</td>
           </tr>
       {% endfor %}
   </table>

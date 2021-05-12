@@ -72,20 +72,15 @@ def dashboard(request):
 
 
 def providerdashboard(request):
-    user_lis = []
-    qs_list = []
-    qs_filter = []
-    us_count = 0
-
     qs = HealthData.objects.none()
+    provider = get_object_or_404(Provider, user=request.user)
     if request.method == 'POST':
-        form = AddSeekerForm(request.POST, instance=request.user)
+        form = AddSeekerForm(request.POST, instance=provider)
         if form.is_valid():
             form.save()
             return redirect('p_dashboard')
         else:
-            form = AddSeekerForm(instance=request.user)
-    provider = get_object_or_404(Provider, user=request.user)
+            form = AddSeekerForm()
     is_consulting = IsConsulting.objects.filter(
         provider=provider).values_list('seeker', flat=True)
 
@@ -93,26 +88,26 @@ def providerdashboard(request):
         us = HealthData.objects.filter(seeker__in=is_consulting)
         healthdata_filter = HealthDataFilter(
             request.GET, queryset=us)
-        # for i in us:
-        #     if i.seeker not in user_lis:
-        #         us_count = us.filter(seeker=i.seeker).count()
-        #         user_lis.append(i.seeker)
-        #         qs_filter.append(i)
-        #         qs_list.append([i.seeker, us_count])
 
     else:
         healthdata_filter = None
         us = None
 
-    # print(new_qs, type(us))
-    # print(qs_list[0][0].seeker)
     context = {
         'form': AddSeekerForm,
         'healthdata_filter': healthdata_filter,
         'us': us,
-        'qs_list': qs_list
     }
     return render(request, 'listings/provider_dashboard.html', context)
+
+
+# class AddSeekerView(LoginRequiredMixin, CreateView):
+#     model = IsConsulting
+#     fields = ['seeker']
+
+#     def form_valid(self, form):
+#         form.instance.provider = self.request.user
+#         return super().form_valid(form)
 
 
 class ListingView(LoginRequiredMixin, DetailView):

@@ -30,9 +30,9 @@ def track(request):
 
 class AddDataView(LoginRequiredMixin, CreateView):
     template_name = 'healthdata/track.html'
-    success_url = '/dashboard'
+    success_url = 'dashboard'
     model = HealthData
-    fields = ['heartrate', 'steps', 'weight']
+    fields = ['heartrate', 'steps', 'weight', 'blood_pressure']
 
     def form_valid(self, form):
         form.instance.seeker = self.request.user.seeker

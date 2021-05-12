@@ -20,7 +20,8 @@
                 <form method="POST">
                     {% csrf_token %}
                     {{ form }}
-                    <button class="submit" type="submit">Add Seeker</button>
+                    {{form.errors}}
+                    <input class="submit" type="submit" value="Add Seeker">
                 </form>
             </div>
         </div>
