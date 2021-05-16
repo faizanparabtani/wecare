@@ -37,12 +37,11 @@ logger = logging.getLogger(__name__)
 
 class AddDataView(LoginRequiredMixin, CreateView):
     model = HealthData
-    fields = ['heartrate', 'steps', 'weight']
+    fields = ['heartrate', 'steps', 'weight', 'blood_pressure']
     template_name = 'healthdata/track.html'
-    success_url = 'dashboard'
+    success_url = '/dashboard'
 
     def form_valid(self, form):
-        print('This')
         form.instance.seeker = self.request.user.seeker
         return super().form_valid(form)
 

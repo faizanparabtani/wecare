@@ -11,7 +11,7 @@ class HealthData(models.Model):
     weight = models.IntegerField()
     steps = models.IntegerField()
     blood_pressure = models.IntegerField(
-        validators=[MaxValueValidator(180), MinValueValidator(60)])
+        validators=[MaxValueValidator(180), MinValueValidator(60)], null=True, blank=True)
     date_recorded = models.DateTimeField(default=timezone.now)
 
     def __str__(self):

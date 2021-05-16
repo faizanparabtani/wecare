@@ -3,7 +3,7 @@ from .models import Listing
 from itertools import chain
 from healthdata.models import HealthData
 from django.http import JsonResponse, Http404
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.core.paginator import Paginator
 from rest_framework.response import Response
 from rest_framework import status
@@ -19,7 +19,7 @@ from django.views.generic import (
 from .filters import ListingFilter, HealthDataFilter
 from users.models import User, Seeker, Provider, IsConsulting
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-from .forms import EditListingForm, AddSeekerForm
+from .forms import EditListingForm, AddSeekerForm, RemoveSeekerForm
 from healthdata.models import HealthData, Fact
 
 # from django_filters.views import FilterView
@@ -101,13 +101,14 @@ def providerdashboard(request):
     return render(request, 'listings/provider_dashboard.html', context)
 
 
-# class AddSeekerView(LoginRequiredMixin, CreateView):
-#     model = IsConsulting
-#     fields = ['seeker']
+class AddSeekerView(LoginRequiredMixin, CreateView):
+    model = IsConsulting
+    fields = ['seeker']
+    success_url = '/p_dashboard'
 
-#     def form_valid(self, form):
-#         form.instance.provider = self.request.user
-#         return super().form_valid(form)
+    def form_valid(self, form):
+        form.instance.provider = self.request.user.provider
+        return super().form_valid(form)
 
 
 class ListingView(LoginRequiredMixin, DetailView):
@@ -124,6 +125,32 @@ class ListingView(LoginRequiredMixin, DetailView):
         }
 
         return render(request, 'listings/listing.html', context)
+
+
+class SeekerRemoveView(DeleteView):
+    success_url = 'providerdashboard'
+
+    def get(self, request, pk, *args, **kwargs):
+        provider = request.user.provider
+        provider_id = provider.pk
+        seeker_id = pk
+        is_conulting_obj = IsConsulting.objects.filter(
+            seeker=seeker_id, provider=provider_id)
+        if is_conulting_obj != None:
+            is_conulting_obj.delete()
+        return redirect('/providerdashboard')
+
+
+# class SeekerRemoveView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
+#     model = IsConsulting
+#     success_url = '/p_dashboard'
+
+#     def test_func(self):
+#         return True
+        # provider = get_object_or_404(Provider, user=self.request.user)
+        # if provider == record.seeker:
+        #     return True
+        # return False
 
 
 class MyListing(LoginRequiredMixin, UpdateView):

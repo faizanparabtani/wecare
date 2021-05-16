@@ -17,10 +17,9 @@
             </div>
             <div class="add_seeker">
                 <h3>Add a Patient to your list</h3>
-                <form method="POST">
+                <form method="POST" action="{% url 'add_seeker' %}">
                     {% csrf_token %}
                     {{ form }}
-                    {{form.errors}}
                     <input class="submit" type="submit" value="Add Seeker">
                 </form>
             </div>
@@ -32,7 +31,9 @@
                     <th>Weight</th>
                     <th>Steps</th>
                     <th>Heart Rate</th>
+                    <th>Blood Pressure</th>
                     <th>Date Recorded</th>
+                    <th>Remove Seeker</th>
                 </tr>
             </thead>
             
@@ -42,10 +43,10 @@
                     <td>{{ healthdata.weight }}</td>
                     <td>{{ healthdata.steps }}</td>
                     <td>{{ healthdata.heartrate }}</td>
+                    <td>{{ healthdata.blood_pressure }}</td>
                     <td>{{ healthdata.date_recorded }}</td>
-                    <!-- <td><a>Know More </a></td> -->
+                    <td><a href="{% url 'remove_seeker' healthdata.seeker.pk %}">Remove</a></td>
                 </tr>
-                
             {% endfor %}
         </table>
     </div>
