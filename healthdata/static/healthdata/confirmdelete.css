@@ -1,0 +1,29 @@
+.main {
+  margin: 2vh;
+  font-family: "Noto Sans", sans-serif;
+}
+
+.form_cont {
+  border: 1px solid black;
+  padding: 5vh;
+}
+.submit {
+  font-family: "Noto Sans", sans-serif;
+  font-size: 2vh;
+  border-radius: 0;
+  border: 2px solid black;
+  padding-left: 3vh;
+  padding-right: 3vh;
+  margin-left: 3vh;
+}
+
+.submit:hover {
+  color: white;
+  background-color: rgb(43, 43, 43);
+  transition: 0.5s;
+}
+
+footer {
+  position: absolute;
+  bottom: 0;
+}

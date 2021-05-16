@@ -1,9 +1,19 @@
 {% extends "listings/base.html" %}
 {% load static %}
 {% block content %}
-<form method="post">{% csrf_token %}
-    <p>Are you sure you want to delete "{{ object }}"?</p>
-    <input type="submit" value="Confirm">
-</form>
+<link rel="stylesheet" href="{% static 'healthdata/confirmdelete.css' %}">
+<div class="main">
+    <div class="form_cont">
+        <form method="post">{% csrf_token %}
+            <p>Are you sure you want to delete your data of"{{ object.date_recorded }}"?</p>
+            <p>Containing following Values</p>
+            <p>HeartRate: {{ object.heartrate }}</p>
+            <p>Steps: {{ object.steps }}</p>
+            <p>Blood Pressure: {{ object.blood_pressure }}</p>
+            <input  class="submit" type="submit" value="Confirm">
+        </form>
+    </div>
+</div>
+
 
 {% endblock content %}

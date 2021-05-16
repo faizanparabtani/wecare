@@ -57,7 +57,9 @@ canvas {
 @media screen and (max-width: 599px) {
   .parent_container {
     flex-direction: column;
-    /* min-height: 300px; */
+    font-size: 2vh;
+    margin-left: 0.5vh;
+    margin-right: 0.5vh;
   }
   .listings_table {
     table-layout: fixed;
@@ -76,6 +78,16 @@ canvas {
   }
   .listings_table td {
     font-size: 15px;
+  }
+  .listings_table {
+    padding: 0;
+  }
+  .listings_table td {
+    font-size: 2vh;
+  }
+  .listings_table th {
+    font-size: 2vh;
+    padding: 0;
   }
 }
 

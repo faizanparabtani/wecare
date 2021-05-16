@@ -11,6 +11,26 @@
   .parent_container h1 {
     font-size: 1em;
   }
+
+  form {
+    display: table;
+  }
+
+  p {
+    display: table-row;
+  }
+  label {
+    display: table-cell;
+    margin-top: 2vh;
+    max-width: 100px;
+  }
+  input {
+    display: table-cell;
+  }
+
+  .submit {
+    margin-top: 10px;
+  }
 }
 
 #id_username,
@@ -33,4 +53,8 @@
 footer {
   position: relative;
   bottom: 0;
+}
+
+ul {
+  display: none;
 }

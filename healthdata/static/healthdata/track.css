@@ -87,3 +87,23 @@ label {
 .success_message {
   display: flex;
 }
+
+@media screen and (max-width: 599px) {
+  .chart {
+    width: 100%;
+  }
+  .data_form h1 {
+    font-size: 3vh;
+    margin-top: 2vh;
+  }
+  .datareport {
+    margin-top: 1vh;
+  }
+  .datareport h2 {
+    font-size: 2vh;
+  }
+  .formandchart {
+    display: flex;
+    flex-direction: column;
+  }
+}

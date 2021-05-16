@@ -104,7 +104,7 @@ def providerdashboard(request):
 class AddSeekerView(LoginRequiredMixin, CreateView):
     model = IsConsulting
     fields = ['seeker']
-    success_url = '/p_dashboard'
+    success_url = '/providerdashboard'
 
     def form_valid(self, form):
         form.instance.provider = self.request.user.provider

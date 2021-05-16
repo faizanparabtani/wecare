@@ -65,3 +65,29 @@
 table {
   width: 100%;
 }
+
+/* Phone Screen */
+@media screen and (max-width: 599px) {
+  .parent_container {
+    font-size: 3vh;
+    margin-left: 0.5vh;
+    margin-right: 0.5vh;
+  }
+
+  .listings_table {
+    padding: 0;
+  }
+  .listings_table td {
+    font-size: 2.5vh;
+  }
+  .listings_table th {
+    font-size: 2vh;
+    padding: 0;
+  }
+  .form_cont {
+    flex-direction: column;
+  }
+  .search_seeker {
+    margin-top: 3vh;
+  }
+}

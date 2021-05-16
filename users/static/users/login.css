@@ -57,35 +57,12 @@
     text-align: left;
     flex-direction: column;
   }
-  .loginform input,
-  .loginform label {
-    float: left;
-  }
 
-  label {
-    max-width: 100px;
-  }
   .loginform input {
     margin: 10px;
   }
 
-  /* #id_username,
-  #id_password {
-    float: right;
-    font-size: 10px;
-    padding: 5px;
-    border: none;
-    background-color: rgb(182, 182, 182);
-  } */
-
   .submit {
-    /* margin-top: 20px;
-    font-weight: bold;
-    border: 0;
-    color: white;
-    background-color: var(--primary);
-    min-height: 40px;
-    min-width: 100px; */
     font-family: "Noto Sans", sans-serif;
     font-size: 2vh;
     border-radius: 0;
@@ -103,11 +80,6 @@
 
   .girl_workout {
     display: none;
-    margin-top: 1vh;
-    max-width: 10vh;
-    /* display: flex; */
-    opacity: 0.5;
-    z-index: -1;
   }
   .signup {
     color: var(--primary);
@@ -115,6 +87,31 @@
   }
 
   .helptext {
+    display: none;
+  }
+  form {
+    display: table;
+  }
+
+  p {
+    display: table-row;
+  }
+  label {
+    display: table-cell;
+    margin-top: 2vh;
+    float: left;
+    /* max-width: 100px; */
+  }
+  input {
+    float: right;
+    display: table-cell;
+  }
+  footer {
+    position: absolute;
+    bottom: 0;
+  }
+
+  ul {
     display: none;
   }
 }
@@ -167,6 +164,12 @@
     margin: 0.2em;
   }
 
+  label {
+    float: left;
+  }
+  input {
+    float: right;
+  }
   #id_username,
   #id_password {
     font-size: 20px;
@@ -205,4 +208,12 @@
     position: absolute;
     bottom: 0;
   } */
+}
+
+input {
+  float: right;
+}
+
+label {
+  float: left;
 }

@@ -7,20 +7,20 @@
 <div class="parent_container">
     <div class="table_container">
         <div class="form_cont">
-            <div class="search_seeker">
-                <h3>Search a seeker</h3>
-                <form method="get">
-                    {% csrf_token %}
-                    {{ healthdata_filter.form.as_p }}
-                    <button class="submit" type="submit">Search</button>
-                </form>
-            </div>
             <div class="add_seeker">
                 <h3>Add a Patient to your list</h3>
                 <form method="POST" action="{% url 'add_seeker' %}">
                     {% csrf_token %}
                     {{ form }}
                     <input class="submit" type="submit" value="Add Seeker">
+                </form>
+            </div>
+            <div class="search_seeker">
+                <h3>Search a seeker</h3>
+                <form method="get">
+                    {% csrf_token %}
+                    {{ healthdata_filter.form.as_p }}
+                    <button class="submit" type="submit">Search</button>
                 </form>
             </div>
         </div>
@@ -36,18 +36,21 @@
                     <th>Remove Seeker</th>
                 </tr>
             </thead>
-            
-            {% for healthdata in healthdata_filter.qs %}
-                <tr>
-                    <td><a>{{ healthdata.seeker }}</a></td>
-                    <td>{{ healthdata.weight }}</td>
-                    <td>{{ healthdata.steps }}</td>
-                    <td>{{ healthdata.heartrate }}</td>
-                    <td>{{ healthdata.blood_pressure }}</td>
-                    <td>{{ healthdata.date_recorded }}</td>
-                    <td><a href="{% url 'remove_seeker' healthdata.seeker.pk %}">Remove</a></td>
-                </tr>
-            {% endfor %}
+            {% if healthdata_filter != None %}
+                {% for healthdata in healthdata_filter.qs %}
+                    <tr>
+                        <td><a>{{ healthdata.seeker }}</a></td>
+                        <td>{{ healthdata.weight }}</td>
+                        <td>{{ healthdata.steps }}</td>
+                        <td>{{ healthdata.heartrate }}</td>
+                        <td>{{ healthdata.blood_pressure }}</td>
+                        <td>{{ healthdata.date_recorded|date:"M d, y" }}</td>
+                        <td><a href="{% url 'remove_seeker' healthdata.seeker.pk %}">Remove</a></td>
+                    </tr>
+                {% endfor %}
+            {% else %}
+                <p>No entries</p>
+            {% endif %}
         </table>
     </div>
 </div>
