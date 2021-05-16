@@ -1,12 +1,12 @@
 {% extends "listings/base.html" %}
 {% load static %}
+{% load my_templatetags %}
 {% block content %} 
 <link rel="stylesheet" href="{% static 'listings/dashboard.css' %}">
 <link rel="stylesheet" href="{% static 'listings/provider_dashboard.css' %}">
-<!-- <h1>Patient Health Data</h1> -->
 <div class="parent_container">
     <div class="table_container">
-        <div class="form_cont">
+        <div class="form_cont"> 
             <div class="add_seeker">
                 <h3>Add a Patient to your list</h3>
                 <form method="POST" action="{% url 'add_seeker' %}">
@@ -36,22 +36,35 @@
                     <th>Remove Seeker</th>
                 </tr>
             </thead>
-            {% if healthdata_filter != None %}
-                {% for healthdata in healthdata_filter.qs %}
-                    <tr>
-                        <td><a>{{ healthdata.seeker }}</a></td>
-                        <td>{{ healthdata.weight }}</td>
-                        <td>{{ healthdata.steps }}</td>
-                        <td>{{ healthdata.heartrate }}</td>
-                        <td>{{ healthdata.blood_pressure }}</td>
-                        <td>{{ healthdata.date_recorded|date:"M d, y" }}</td>
-                        <td><a href="{% url 'remove_seeker' healthdata.seeker.pk %}">Remove</a></td>
-                    </tr>
-                {% endfor %}
-            {% else %}
-                <p>No entries</p>
-            {% endif %}
+            {% for healthdata in healthdata_filter.qs %}
+                <tr>
+                    <td><a>{{ healthdata.seeker }}</a></td>
+                    <td>{{ healthdata.weight }}</td>
+                    <td>{{ healthdata.steps }}</td>
+                    <td>{{ healthdata.heartrate }}</td>
+                    <td>{{ healthdata.blood_pressure }}</td>
+                    <td>{{ healthdata.date_recorded|date:"M d, y" }}</td>
+                    <td><a href="{% url 'remove_seeker' healthdata.seeker.pk %}">Remove</a></td>
+                </tr>
+            {% endfor %}
         </table>
+    </div>
+    <div class="paginator">
+        <span>
+            {% if response.has_previous %}
+                <a class="paglink" href="?{% query_transform request page=1 %}">&#8249; first</a>
+                <a class="previous round" href="?{% query_transform request page=response.previous_page_number %}">&#8249;</a>
+            {% endif %}
+
+            <span class="current">
+                Page {{ response.number }} of {{ response.paginator.num_pages }}
+            </span>
+
+            {% if response.has_next %}
+                <a class="previous round" href="?{% query_transform request page=response.next_page_number %}">&#8250;</a>
+                <a class="paglink" href="?{% query_transform request page=response.paginator.num_pages %}">last &raquo;</a>
+            {% endif %}
+        </span>
     </div>
 </div>
 

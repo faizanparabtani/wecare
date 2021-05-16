@@ -30,8 +30,6 @@ def home(request):
 
 
 def dashboard(request):
-    labels = []
-    data = []
     seeker = get_object_or_404(Seeker, user=request.user)
 
     fact = Fact.objects.filter(ethnicity=seeker.ethnicity)
@@ -42,7 +40,6 @@ def dashboard(request):
     # Pagination
     paginator = Paginator(listing_filter.qs, 4)
     page_number = request.GET.get('page')
-    # page_obj = paginator.get_page(page_number)
 
     try:
         response = paginator.page(page_number)
@@ -72,7 +69,6 @@ def dashboard(request):
 
 
 def providerdashboard(request):
-    qs = HealthData.objects.none()
     provider = get_object_or_404(Provider, user=request.user)
     if request.method == 'POST':
         form = AddSeekerForm(request.POST, instance=provider)
@@ -81,6 +77,7 @@ def providerdashboard(request):
             return redirect('p_dashboard')
         else:
             form = AddSeekerForm()
+
     is_consulting = IsConsulting.objects.filter(
         provider=provider).values_list('seeker', flat=True)
 
@@ -88,13 +85,25 @@ def providerdashboard(request):
         us = HealthData.objects.filter(seeker__in=is_consulting)
         healthdata_filter = HealthDataFilter(
             request.GET, queryset=us)
-
     else:
         healthdata_filter = None
         us = None
 
+    # Pagination
+    paginator = Paginator(healthdata_filter.qs, 4)
+    page_number = request.GET.get('page')
+
+    try:
+        response = paginator.page(page_number)
+    except PageNotAnInteger:
+        response = paginator.page(1)
+    except EmptyPage:
+        response = paginator.page(paginator.num_pages)
+
     context = {
         'form': AddSeekerForm,
+        'page': page_number,
+        'response': response,
         'healthdata_filter': healthdata_filter,
         'us': us,
     }
