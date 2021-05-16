@@ -16,7 +16,7 @@
     </div>
     <div class="data_form">
       <h1>Track your Health by entering data below!</h1>
-      <form method="POST">
+      <form method="post" action="{% url 'add_class' %}">
           {% csrf_token %}
           {{ form }}
           <input class="add" type="submit" value="Add">
@@ -31,6 +31,7 @@
               <th>Steps</th>
               <th>Heart Rate</th>
               <th>Blood Pressure</th>
+              <th>Delete a Records</th>
           </tr>
       </thead>
       {% for hd in healthdata %}
@@ -38,6 +39,7 @@
               <td><a>{{ hd.steps }}</a></td>
               <td>{{ hd.weight }}</td>
               <td>{{ hd.blood_pressure }}</td>
+              <td><a href="{% url 'delete' hd.pk %}">Delete</a></td>
           </tr>
       {% endfor %}
   </table>

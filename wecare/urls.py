@@ -22,6 +22,8 @@ urlpatterns = [
     path('track', healthdata.track, name='track'),
     path('users/', include('users.urls')),
     path('mylisting/', listings.mylisting, name='mylisting'),
+    path('delete/<int:pk>', healthdata.RecordDeleteView.as_view(), name='delete'),
+    path('add_data/', healthdata.AddDataView.as_view(), name='add_class')
     # path('addseeker<int:pk>/', listings.AddSeekerView.as_view(), name='addseeker')
     # path('profile/', users.provider_setting, name='p_profile')
     # path('mylisting/', listings.MyListing.as_view(), name='mylisting'),
