@@ -150,18 +150,6 @@ class SeekerRemoveView(DeleteView):
         return redirect('/providerdashboard')
 
 
-# class SeekerRemoveView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
-#     model = IsConsulting
-#     success_url = '/p_dashboard'
-
-#     def test_func(self):
-#         return True
-        # provider = get_object_or_404(Provider, user=self.request.user)
-        # if provider == record.seeker:
-        #     return True
-        # return False
-
-
 class MyListing(LoginRequiredMixin, UpdateView):
     model = Listing
     form_class = EditListingForm
@@ -223,3 +211,15 @@ def mylisting(request):
     # def get_queryset(self):
     #     prociders = get_object_or_404(Provider, username=self.kwargs.get('username'))
     #     return Post.objects.filter(author=user).order_by('-date_posted')
+
+
+# class SeekerRemoveView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
+#     model = IsConsulting
+#     success_url = '/p_dashboard'
+
+#     def test_func(self):
+#         return True
+    # provider = get_object_or_404(Provider, user=self.request.user)
+    # if provider == record.seeker:
+    #     return True
+    # return False

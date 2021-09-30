@@ -1,5 +1,6 @@
 from django.db import models
 from users.models import Provider
+from django.shortcuts import reverse
 
 
 class Listing(models.Model):

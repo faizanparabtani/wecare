@@ -26,7 +26,7 @@ urlpatterns = [
     path('delete/<int:pk>', healthdata.RecordDeleteView.as_view(), name='delete'),
     path('add_data/', healthdata.AddDataView.as_view(), name='add_class'),
     path('add_seeker/', listings.AddSeekerView.as_view(), name='add_seeker'),
-    path('/remove_seeker/<int:pk>',
+    path('remove_seeker/<int:pk>',
          listings.SeekerRemoveView.as_view(), name='remove_seeker')
     # path('addseeker<int:pk>/', listings.AddSeekerView.as_view(), name='addseeker')
     # path('profile/', users.provider_setting, name='p_profile')

@@ -22,7 +22,7 @@ class seeker_register(CreateView):
     def form_valid(self, form):
         user = form.save()
         messages.success(
-            request, f'Your account has been created! You are now able to log in')
+            self.request, f'Your account has been created! You are now able to log in')
         login(self.request, user)
         return redirect('/')
 

@@ -31,6 +31,7 @@
               <th>Steps</th>
               <th>Heart Rate</th>
               <th>Blood Pressure</th>
+              <th>Date</th>
               <th>Delete a Record</th>
           </tr>
       </thead>
@@ -39,6 +40,7 @@
               <td><a>{{ hd.steps }}</a></td>
               <td>{{ hd.weight }}</td>
               <td>{{ hd.blood_pressure }}</td>
+              <td>{{ hd.date_recorded }}</td>
               <td><a href="{% url 'delete' hd.pk %}">Delete</a></td>
           </tr>
       {% endfor %}
