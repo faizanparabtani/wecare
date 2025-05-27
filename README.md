@@ -1,6 +1,6 @@
-# 🏥 WeCare - Healthcare Providers & Seekers Platform 💖  
+# 🏥 WeCare - Healthcare Providers & Seekers Platform 
 
-**Connecting care with compassion** 🌟  
+✨**Connecting care with compassion**  
 
 WeCare is a modern web application built with Django that bridges the gap between healthcare providers and patients. Whether you're a doctor, nurse, therapist, or someone seeking medical assistance, WeCare makes healthcare accessible, efficient, and personalized.  
 
